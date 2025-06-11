@@ -11,8 +11,8 @@
 **Phân công:**  
 - **Đăng**: DB & xử lý login + user  
 - **Minh**: Form + tạo dự án  
-- **Kiên**: Thiết kế UI login & dashboard  
-- **Đạt**: Test đăng nhập, kiểm thử kết nối  
+- **Đạt**: Thiết kế UI login & dashboard  
+- **Kiên**: Test đăng nhập, kiểm thử kết nối  
 
 ---
 
