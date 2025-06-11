@@ -1,0 +1,101 @@
+<mxfile host="app.diagrams.net"><diagram name="ERD_Task_Management">&lt;mxGraphModel dx="1080" dy="720" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169"&gt;
+  &lt;root&gt;
+    &lt;mxCell id="0"/&gt;
+    &lt;mxCell id="1" parent="0"/&gt;
+
+    &lt;!-- Users --&gt;
+    &lt;mxCell id="2" value="Users
+- user_id (PK)
+- full_name
+- email
+- password_hash" style="shape=swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1"&gt;
+      &lt;mxGeometry x="20" y="20" width="200" height="120" as="geometry"/&gt;
+    &lt;/mxCell&gt;
+
+    &lt;!-- Projects --&gt;
+    &lt;mxCell id="3" value="Projects
+- project_id (PK)
+- project_name
+- description
+- created_by (FK)" style="shape=swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1"&gt;
+      &lt;mxGeometry x="300" y="20" width="220" height="120" as="geometry"/&gt;
+    &lt;/mxCell&gt;
+
+    &lt;!-- ProjectRoles --&gt;
+    &lt;mxCell id="4" value="ProjectRoles
+- role_id (PK)
+- role_name" style="shape=swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1"&gt;
+      &lt;mxGeometry x="20" y="180" width="200" height="80" as="geometry"/&gt;
+    &lt;/mxCell&gt;
+
+    &lt;!-- User_Project --&gt;
+    &lt;mxCell id="5" value="User_Project
+- id (PK)
+- user_id (FK)
+- project_id (FK)
+- role_id (FK)
+- status" style="shape=swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1"&gt;
+      &lt;mxGeometry x="300" y="180" width="220" height="140" as="geometry"/&gt;
+    &lt;/mxCell&gt;
+
+    &lt;!-- Sprints --&gt;
+    &lt;mxCell id="6" value="Sprints
+- sprint_id (PK)
+- project_id (FK)
+- name
+- start_date
+- end_date" style="shape=swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1"&gt;
+      &lt;mxGeometry x="580" y="20" width="220" height="120" as="geometry"/&gt;
+    &lt;/mxCell&gt;
+
+    &lt;!-- Sprint_Backlog --&gt;
+    &lt;mxCell id="7" value="Sprint_Backlog
+- sprint_backlog_id (PK)
+- project_id (FK)
+- sprint_id (FK)
+- title" style="shape=swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1"&gt;
+      &lt;mxGeometry x="580" y="180" width="220" height="120" as="geometry"/&gt;
+    &lt;/mxCell&gt;
+
+    &lt;!-- Tasks --&gt;
+    &lt;mxCell id="8" value="Tasks
+- task_id (PK)
+- sprint_backlog_id (FK)
+- task_title
+- status
+- priority
+- assigned_to (FK)" style="shape=swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1"&gt;
+      &lt;mxGeometry x="580" y="340" width="240" height="140" as="geometry"/&gt;
+    &lt;/mxCell&gt;
+
+    &lt;!-- Relationships --&gt;
+    &lt;mxCell id="10" style="endArrow=block;" edge="1" parent="1" source="3" target="2"&gt;
+      &lt;mxGeometry relative="1" as="geometry"/&gt;
+    &lt;/mxCell&gt;
+    &lt;mxCell id="11" style="endArrow=block;" edge="1" parent="1" source="5" target="2"&gt;
+      &lt;mxGeometry relative="1" as="geometry"/&gt;
+    &lt;/mxCell&gt;
+    &lt;mxCell id="12" style="endArrow=block;" edge="1" parent="1" source="5" target="3"&gt;
+      &lt;mxGeometry relative="1" as="geometry"/&gt;
+    &lt;/mxCell&gt;
+    &lt;mxCell id="13" style="endArrow=block;" edge="1" parent="1" source="5" target="4"&gt;
+      &lt;mxGeometry relative="1" as="geometry"/&gt;
+    &lt;/mxCell&gt;
+    &lt;mxCell id="14" style="endArrow=block;" edge="1" parent="1" source="6" target="3"&gt;
+      &lt;mxGeometry relative="1" as="geometry"/&gt;
+    &lt;/mxCell&gt;
+    &lt;mxCell id="15" style="endArrow=block;" edge="1" parent="1" source="7" target="3"&gt;
+      &lt;mxGeometry relative="1" as="geometry"/&gt;
+    &lt;/mxCell&gt;
+    &lt;mxCell id="16" style="endArrow=block;" edge="1" parent="1" source="7" target="6"&gt;
+      &lt;mxGeometry relative="1" as="geometry"/&gt;
+    &lt;/mxCell&gt;
+    &lt;mxCell id="17" style="endArrow=block;" edge="1" parent="1" source="8" target="7"&gt;
+      &lt;mxGeometry relative="1" as="geometry"/&gt;
+    &lt;/mxCell&gt;
+    &lt;mxCell id="18" style="endArrow=block;" edge="1" parent="1" source="8" target="2"&gt;
+      &lt;mxGeometry relative="1" as="geometry"/&gt;
+    &lt;/mxCell&gt;
+
+  &lt;/root&gt;
+&lt;/mxGraphModel&gt;</diagram></mxfile>
