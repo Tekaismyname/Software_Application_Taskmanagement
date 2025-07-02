@@ -30,13 +30,19 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ucDashboard));
             this.pnlUcDashboard = new Guna.UI2.WinForms.Guna2Panel();
+            this.picAction = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.cboActionDashboard = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.btnReports = new Guna.UI2.WinForms.Guna2Button();
             this.btnSprints = new Guna.UI2.WinForms.Guna2Button();
             this.btnProjects = new Guna.UI2.WinForms.Guna2Button();
+            this.picSprintAction = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.cboActionSprint = new Guna.UI2.WinForms.Guna2ComboBox();
             this.pnlUcDashboard.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAction)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picSprintAction)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlUcDashboard
@@ -45,6 +51,10 @@
             this.pnlUcDashboard.BorderColor = System.Drawing.Color.White;
             this.pnlUcDashboard.BorderRadius = 10;
             this.pnlUcDashboard.BorderThickness = 2;
+            this.pnlUcDashboard.Controls.Add(this.picSprintAction);
+            this.pnlUcDashboard.Controls.Add(this.cboActionSprint);
+            this.pnlUcDashboard.Controls.Add(this.picAction);
+            this.pnlUcDashboard.Controls.Add(this.cboActionDashboard);
             this.pnlUcDashboard.Controls.Add(this.label1);
             this.pnlUcDashboard.Controls.Add(this.guna2PictureBox1);
             this.pnlUcDashboard.Controls.Add(this.btnReports);
@@ -57,6 +67,42 @@
             this.pnlUcDashboard.Name = "pnlUcDashboard";
             this.pnlUcDashboard.Size = new System.Drawing.Size(950, 150);
             this.pnlUcDashboard.TabIndex = 0;
+            // 
+            // picAction
+            // 
+            this.picAction.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.picAction.BackColor = System.Drawing.Color.White;
+            this.picAction.Image = ((System.Drawing.Image)(resources.GetObject("picAction.Image")));
+            this.picAction.ImageRotate = 0F;
+            this.picAction.Location = new System.Drawing.Point(726, 14);
+            this.picAction.Name = "picAction";
+            this.picAction.Size = new System.Drawing.Size(59, 45);
+            this.picAction.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picAction.TabIndex = 6;
+            this.picAction.TabStop = false;
+            // 
+            // cboActionDashboard
+            // 
+            this.cboActionDashboard.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.cboActionDashboard.BackColor = System.Drawing.Color.White;
+            this.cboActionDashboard.BorderColor = System.Drawing.Color.Black;
+            this.cboActionDashboard.BorderRadius = 10;
+            this.cboActionDashboard.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cboActionDashboard.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboActionDashboard.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cboActionDashboard.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cboActionDashboard.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cboActionDashboard.ForeColor = System.Drawing.Color.Black;
+            this.cboActionDashboard.ItemHeight = 30;
+            this.cboActionDashboard.Items.AddRange(new object[] {
+            "Add",
+            "Edit",
+            "Delete"});
+            this.cboActionDashboard.Location = new System.Drawing.Point(791, 14);
+            this.cboActionDashboard.Name = "cboActionDashboard";
+            this.cboActionDashboard.Size = new System.Drawing.Size(140, 36);
+            this.cboActionDashboard.TabIndex = 5;
+            this.cboActionDashboard.SelectedIndexChanged += new System.EventHandler(this.cboActionDashboard_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -103,7 +149,7 @@
             this.btnReports.HoverState.CustomBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(161)))), ((int)(((byte)(226)))));
             this.btnReports.HoverState.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReports.HoverState.ForeColor = System.Drawing.Color.Black;
-            this.btnReports.Location = new System.Drawing.Point(576, 102);
+            this.btnReports.Location = new System.Drawing.Point(676, 102);
             this.btnReports.Name = "btnReports";
             this.btnReports.Size = new System.Drawing.Size(180, 45);
             this.btnReports.TabIndex = 2;
@@ -153,12 +199,48 @@
             this.btnProjects.HoverState.CustomBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(161)))), ((int)(((byte)(226)))));
             this.btnProjects.HoverState.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnProjects.HoverState.ForeColor = System.Drawing.Color.Black;
-            this.btnProjects.Location = new System.Drawing.Point(204, 102);
+            this.btnProjects.Location = new System.Drawing.Point(104, 102);
             this.btnProjects.Name = "btnProjects";
             this.btnProjects.Size = new System.Drawing.Size(180, 45);
             this.btnProjects.TabIndex = 0;
             this.btnProjects.Text = "Projects";
             this.btnProjects.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnProjects_Click);
+            // 
+            // picSprintAction
+            // 
+            this.picSprintAction.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.picSprintAction.BackColor = System.Drawing.Color.White;
+            this.picSprintAction.Image = ((System.Drawing.Image)(resources.GetObject("picSprintAction.Image")));
+            this.picSprintAction.ImageRotate = 0F;
+            this.picSprintAction.Location = new System.Drawing.Point(726, 14);
+            this.picSprintAction.Name = "picSprintAction";
+            this.picSprintAction.Size = new System.Drawing.Size(59, 45);
+            this.picSprintAction.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picSprintAction.TabIndex = 8;
+            this.picSprintAction.TabStop = false;
+            // 
+            // cboActionSprint
+            // 
+            this.cboActionSprint.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.cboActionSprint.BackColor = System.Drawing.Color.White;
+            this.cboActionSprint.BorderColor = System.Drawing.Color.Black;
+            this.cboActionSprint.BorderRadius = 10;
+            this.cboActionSprint.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cboActionSprint.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboActionSprint.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cboActionSprint.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cboActionSprint.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cboActionSprint.ForeColor = System.Drawing.Color.Black;
+            this.cboActionSprint.ItemHeight = 30;
+            this.cboActionSprint.Items.AddRange(new object[] {
+            "Add",
+            "Edit",
+            "Delete"});
+            this.cboActionSprint.Location = new System.Drawing.Point(791, 14);
+            this.cboActionSprint.Name = "cboActionSprint";
+            this.cboActionSprint.Size = new System.Drawing.Size(140, 36);
+            this.cboActionSprint.TabIndex = 7;
+            this.cboActionSprint.SelectedIndexChanged += new System.EventHandler(this.cboActionSprint_SelectedIndexChanged);
             // 
             // ucDashboard
             // 
@@ -167,9 +249,12 @@
             this.Controls.Add(this.pnlUcDashboard);
             this.Name = "ucDashboard";
             this.Size = new System.Drawing.Size(950, 150);
+            this.Load += new System.EventHandler(this.ucDashboard_Load);
             this.pnlUcDashboard.ResumeLayout(false);
             this.pnlUcDashboard.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAction)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picSprintAction)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -182,5 +267,9 @@
         private Guna.UI2.WinForms.Guna2Button btnReports;
         private System.Windows.Forms.Label label1;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
+        private Guna.UI2.WinForms.Guna2ComboBox cboActionDashboard;
+        private Guna.UI2.WinForms.Guna2PictureBox picAction;
+        private Guna.UI2.WinForms.Guna2PictureBox picSprintAction;
+        private Guna.UI2.WinForms.Guna2ComboBox cboActionSprint;
     }
 }
