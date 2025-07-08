@@ -15,11 +15,14 @@ namespace TaskManagement
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string Status { get; set; }
-
+        public string AssignedTo { get; set; }
+        public string Department { get; set; }
         public override string ToString()
         {
             return $"{SprintName} (ID: {SprintID})";
         }
+        public int NumTasks { get; set; }
+        public int NumMembers { get; set; }
     }
 
 }

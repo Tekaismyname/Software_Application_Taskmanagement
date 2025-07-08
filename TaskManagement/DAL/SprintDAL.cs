@@ -145,19 +145,48 @@ namespace TaskManagement.DAL
                 return dt;
             }
         }
-        public DataTable GetSprintsByProject(int projectId)
+        public List<Sprint> GetSprintsByProject(int projectId)
         {
-            string query = "SELECT SprintID, SprintName FROM Sprints WHERE ProjectID = @ProjectID";
+            List<Sprint> sprints = new List<Sprint>();
+            string query = @"
+        SELECT S.*, 
+       STRING_AGG(U.FullName, ', ') AS AssignedTo,
+       COUNT(SM.UserID) AS NumMembers
+        FROM Sprints S
+        LEFT JOIN SprintMembers SM ON S.SprintID = SM.SprintID AND S.ProjectID = SM.ProjectID
+        LEFT JOIN Users U ON SM.UserID = U.UserID
+        WHERE S.ProjectID = @ProjectID
+        GROUP BY S.SprintID, S.ProjectID, S.SprintName, S.Description, S.Status, S.StartDate, S.EndDate";
+
             using (SqlConnection conn = new SqlConnection(connectionString))
             using (SqlCommand cmd = new SqlCommand(query, conn))
             {
                 cmd.Parameters.AddWithValue("@ProjectID", projectId);
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                return dt;
+                conn.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        sprints.Add(new Sprint
+                        {
+                            SprintID = reader.GetInt32(0),
+                            ProjectID = reader.GetInt32(1),
+                            SprintName = reader.GetString(2),
+                            Description = reader.GetString(3),
+                            Status = reader.GetString(4),
+                            StartDate = reader.GetDateTime(5),
+                            EndDate = reader.GetDateTime(6),
+                            AssignedTo = reader.IsDBNull(7) ? "" : reader.GetString(7),
+                            NumMembers = reader.IsDBNull(8) ? 0 : reader.GetInt32(8)
+
+                        });
+                    }
+                }
             }
+
+            return sprints;
         }
+
 
 
 

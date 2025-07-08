@@ -33,15 +33,9 @@ namespace TaskManagement
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DashboardForm));
             this.pnlSideBar = new Guna.UI2.WinForms.Guna2GradientPanel();
             this.lblUser = new System.Windows.Forms.Label();
-            this.lblRevenue = new System.Windows.Forms.Label();
-            this.lblCoding = new System.Windows.Forms.Label();
-            this.lblMarketing = new System.Windows.Forms.Label();
             this.lblDashboard = new System.Windows.Forms.Label();
-            this.btnCoding = new Guna.UI2.WinForms.Guna2Button();
-            this.btnMarketing = new Guna.UI2.WinForms.Guna2Button();
             this.btnLogout = new Guna.UI2.WinForms.Guna2Button();
             this.btnUser = new Guna.UI2.WinForms.Guna2Button();
-            this.btnRevenue = new Guna.UI2.WinForms.Guna2Button();
             this.btnDashboard = new Guna.UI2.WinForms.Guna2Button();
             this.picVertexLogo = new Guna.UI2.WinForms.Guna2PictureBox();
             this.pnlPlaceTime = new Guna.UI2.WinForms.Guna2Panel();
@@ -56,15 +50,11 @@ namespace TaskManagement
             this.calendarWorkingStatus = new System.Windows.Forms.MonthCalendar();
             this.pnlDashboard = new Guna.UI2.WinForms.Guna2Panel();
             this.ucUser1 = new TaskManagement.ucUser();
-            this.ucRevenue1 = new TaskManagement.ucRevenue();
-            this.ucCoding1 = new TaskManagement.ucCoding();
             this.ucDashboard1 = new TaskManagement.ucDashboard();
-            this.ucMarketing1 = new TaskManagement.ucMarketing();
-            this.pnlProjectShow = new Guna.UI2.WinForms.Guna2Panel();
-            this.ucSprintShowDashboard1 = new TaskManagement.ucSprintShowDashboard();
-            this.ucProjectShowCoding1 = new TaskManagement.ucProjectShowCoding();
-            this.ucProjectShowDashboard1 = new TaskManagement.ucProjectShowDashboard();
-            this.ucProjectShowMarketing1 = new TaskManagement.ucProjectShowMarketing();
+            this.pnlShowTheme = new Guna.UI2.WinForms.Guna2Panel();
+            this.pnlShow = new Guna.UI2.WinForms.Guna2Panel();
+            this.ucProjectCardShow1 = new TaskManagement.ucProjectCardShow();
+            this.ucSprintCardShow1 = new TaskManagement.ucSprintCardShow();
             this.pnlSideBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picVertexLogo)).BeginInit();
             this.pnlPlaceTime.SuspendLayout();
@@ -73,7 +63,8 @@ namespace TaskManagement
             this.gbOnSite.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picOnSite)).BeginInit();
             this.pnlDashboard.SuspendLayout();
-            this.pnlProjectShow.SuspendLayout();
+            this.pnlShowTheme.SuspendLayout();
+            this.pnlShow.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlSideBar
@@ -84,15 +75,9 @@ namespace TaskManagement
             this.pnlSideBar.BorderRadius = 10;
             this.pnlSideBar.BorderThickness = 2;
             this.pnlSideBar.Controls.Add(this.lblUser);
-            this.pnlSideBar.Controls.Add(this.lblRevenue);
-            this.pnlSideBar.Controls.Add(this.lblCoding);
-            this.pnlSideBar.Controls.Add(this.lblMarketing);
             this.pnlSideBar.Controls.Add(this.lblDashboard);
-            this.pnlSideBar.Controls.Add(this.btnCoding);
-            this.pnlSideBar.Controls.Add(this.btnMarketing);
             this.pnlSideBar.Controls.Add(this.btnLogout);
             this.pnlSideBar.Controls.Add(this.btnUser);
-            this.pnlSideBar.Controls.Add(this.btnRevenue);
             this.pnlSideBar.Controls.Add(this.btnDashboard);
             this.pnlSideBar.Controls.Add(this.picVertexLogo);
             this.pnlSideBar.Dock = System.Windows.Forms.DockStyle.Left;
@@ -106,116 +91,34 @@ namespace TaskManagement
             // 
             // lblUser
             // 
+            this.lblUser.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblUser.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUser.Location = new System.Drawing.Point(0, 537);
+            this.lblUser.Location = new System.Drawing.Point(0, 416);
             this.lblUser.Name = "lblUser";
             this.lblUser.Size = new System.Drawing.Size(96, 27);
             this.lblUser.TabIndex = 11;
             this.lblUser.Text = "User";
             this.lblUser.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // lblRevenue
-            // 
-            this.lblRevenue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRevenue.Location = new System.Drawing.Point(0, 447);
-            this.lblRevenue.Name = "lblRevenue";
-            this.lblRevenue.Size = new System.Drawing.Size(96, 27);
-            this.lblRevenue.TabIndex = 10;
-            this.lblRevenue.Text = "Revenue";
-            this.lblRevenue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblCoding
-            // 
-            this.lblCoding.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCoding.Location = new System.Drawing.Point(0, 357);
-            this.lblCoding.Name = "lblCoding";
-            this.lblCoding.Size = new System.Drawing.Size(96, 27);
-            this.lblCoding.TabIndex = 9;
-            this.lblCoding.Text = "Coding";
-            this.lblCoding.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblMarketing
-            // 
-            this.lblMarketing.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMarketing.Location = new System.Drawing.Point(0, 267);
-            this.lblMarketing.Name = "lblMarketing";
-            this.lblMarketing.Size = new System.Drawing.Size(96, 27);
-            this.lblMarketing.TabIndex = 8;
-            this.lblMarketing.Text = "Marketing";
-            this.lblMarketing.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // lblDashboard
             // 
+            this.lblDashboard.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblDashboard.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDashboard.Location = new System.Drawing.Point(0, 177);
+            this.lblDashboard.Location = new System.Drawing.Point(0, 337);
             this.lblDashboard.Name = "lblDashboard";
             this.lblDashboard.Size = new System.Drawing.Size(96, 27);
             this.lblDashboard.TabIndex = 3;
             this.lblDashboard.Text = "Dashboard";
             this.lblDashboard.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btnCoding
-            // 
-            this.btnCoding.BorderRadius = 10;
-            this.btnCoding.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(161)))), ((int)(((byte)(226)))));
-            this.btnCoding.CustomBorderThickness = new System.Windows.Forms.Padding(0, 0, 5, 0);
-            this.btnCoding.CustomImages.CheckedImage = ((System.Drawing.Image)(resources.GetObject("resource.CheckedImage")));
-            this.btnCoding.CustomImages.HoveredImage = ((System.Drawing.Image)(resources.GetObject("resource.HoveredImage")));
-            this.btnCoding.CustomImages.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image")));
-            this.btnCoding.CustomImages.ImageAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.btnCoding.CustomImages.ImageSize = new System.Drawing.Size(30, 30);
-            this.btnCoding.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnCoding.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnCoding.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnCoding.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnCoding.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(142)))), ((int)(((byte)(194)))));
-            this.btnCoding.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnCoding.ForeColor = System.Drawing.Color.White;
-            this.btnCoding.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(161)))), ((int)(((byte)(226)))));
-            this.btnCoding.HoverState.CustomBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(29)))), ((int)(((byte)(97)))));
-            this.btnCoding.HoverState.FillColor = System.Drawing.Color.White;
-            this.btnCoding.ImageSize = new System.Drawing.Size(30, 30);
-            this.btnCoding.Location = new System.Drawing.Point(3, 312);
-            this.btnCoding.Name = "btnCoding";
-            this.btnCoding.Size = new System.Drawing.Size(90, 46);
-            this.btnCoding.TabIndex = 7;
-            this.btnCoding.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnCoding_Click);
-            // 
-            // btnMarketing
-            // 
-            this.btnMarketing.BorderRadius = 10;
-            this.btnMarketing.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(161)))), ((int)(((byte)(226)))));
-            this.btnMarketing.CustomBorderThickness = new System.Windows.Forms.Padding(0, 0, 5, 0);
-            this.btnMarketing.CustomImages.CheckedImage = ((System.Drawing.Image)(resources.GetObject("resource.CheckedImage1")));
-            this.btnMarketing.CustomImages.HoveredImage = ((System.Drawing.Image)(resources.GetObject("resource.HoveredImage1")));
-            this.btnMarketing.CustomImages.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image1")));
-            this.btnMarketing.CustomImages.ImageAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.btnMarketing.CustomImages.ImageSize = new System.Drawing.Size(30, 30);
-            this.btnMarketing.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnMarketing.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnMarketing.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnMarketing.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnMarketing.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(142)))), ((int)(((byte)(194)))));
-            this.btnMarketing.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnMarketing.ForeColor = System.Drawing.Color.White;
-            this.btnMarketing.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(161)))), ((int)(((byte)(226)))));
-            this.btnMarketing.HoverState.CustomBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(29)))), ((int)(((byte)(97)))));
-            this.btnMarketing.HoverState.FillColor = System.Drawing.Color.White;
-            this.btnMarketing.ImageSize = new System.Drawing.Size(30, 30);
-            this.btnMarketing.Location = new System.Drawing.Point(3, 222);
-            this.btnMarketing.Name = "btnMarketing";
-            this.btnMarketing.Size = new System.Drawing.Size(90, 46);
-            this.btnMarketing.TabIndex = 6;
-            this.btnMarketing.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnMarketing_Click);
-            // 
             // btnLogout
             // 
             this.btnLogout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnLogout.BorderRadius = 10;
             this.btnLogout.CustomBorderThickness = new System.Windows.Forms.Padding(0, 0, 5, 0);
-            this.btnLogout.CustomImages.CheckedImage = ((System.Drawing.Image)(resources.GetObject("resource.CheckedImage2")));
-            this.btnLogout.CustomImages.HoveredImage = ((System.Drawing.Image)(resources.GetObject("resource.HoveredImage2")));
-            this.btnLogout.CustomImages.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image2")));
+            this.btnLogout.CustomImages.CheckedImage = ((System.Drawing.Image)(resources.GetObject("resource.CheckedImage")));
+            this.btnLogout.CustomImages.HoveredImage = ((System.Drawing.Image)(resources.GetObject("resource.HoveredImage")));
+            this.btnLogout.CustomImages.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image")));
             this.btnLogout.CustomImages.ImageAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.btnLogout.CustomImages.ImageSize = new System.Drawing.Size(30, 30);
             this.btnLogout.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
@@ -229,18 +132,19 @@ namespace TaskManagement
             this.btnLogout.HoverState.CustomBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(29)))), ((int)(((byte)(97)))));
             this.btnLogout.HoverState.FillColor = System.Drawing.Color.White;
             this.btnLogout.ImageSize = new System.Drawing.Size(30, 30);
-            this.btnLogout.Location = new System.Drawing.Point(3, 675);
+            this.btnLogout.Location = new System.Drawing.Point(3, 689);
             this.btnLogout.Name = "btnLogout";
             this.btnLogout.Size = new System.Drawing.Size(90, 46);
             this.btnLogout.TabIndex = 4;
             // 
             // btnUser
             // 
+            this.btnUser.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnUser.BorderRadius = 10;
             this.btnUser.CustomBorderThickness = new System.Windows.Forms.Padding(0, 0, 5, 0);
-            this.btnUser.CustomImages.CheckedImage = ((System.Drawing.Image)(resources.GetObject("resource.CheckedImage3")));
-            this.btnUser.CustomImages.HoveredImage = ((System.Drawing.Image)(resources.GetObject("resource.HoveredImage3")));
-            this.btnUser.CustomImages.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image3")));
+            this.btnUser.CustomImages.CheckedImage = ((System.Drawing.Image)(resources.GetObject("resource.CheckedImage1")));
+            this.btnUser.CustomImages.HoveredImage = ((System.Drawing.Image)(resources.GetObject("resource.HoveredImage1")));
+            this.btnUser.CustomImages.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image1")));
             this.btnUser.CustomImages.ImageAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.btnUser.CustomImages.ImageSize = new System.Drawing.Size(30, 30);
             this.btnUser.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
@@ -254,46 +158,21 @@ namespace TaskManagement
             this.btnUser.HoverState.CustomBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(29)))), ((int)(((byte)(97)))));
             this.btnUser.HoverState.FillColor = System.Drawing.Color.White;
             this.btnUser.ImageSize = new System.Drawing.Size(30, 30);
-            this.btnUser.Location = new System.Drawing.Point(3, 490);
+            this.btnUser.Location = new System.Drawing.Point(3, 369);
             this.btnUser.Name = "btnUser";
             this.btnUser.Size = new System.Drawing.Size(90, 46);
             this.btnUser.TabIndex = 3;
             this.btnUser.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnUser_Click);
             // 
-            // btnRevenue
-            // 
-            this.btnRevenue.BorderRadius = 10;
-            this.btnRevenue.CustomBorderThickness = new System.Windows.Forms.Padding(0, 0, 5, 0);
-            this.btnRevenue.CustomImages.CheckedImage = ((System.Drawing.Image)(resources.GetObject("resource.CheckedImage4")));
-            this.btnRevenue.CustomImages.HoveredImage = ((System.Drawing.Image)(resources.GetObject("resource.HoveredImage4")));
-            this.btnRevenue.CustomImages.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image4")));
-            this.btnRevenue.CustomImages.ImageAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.btnRevenue.CustomImages.ImageSize = new System.Drawing.Size(30, 30);
-            this.btnRevenue.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnRevenue.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnRevenue.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnRevenue.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnRevenue.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(142)))), ((int)(((byte)(194)))));
-            this.btnRevenue.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnRevenue.ForeColor = System.Drawing.Color.White;
-            this.btnRevenue.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(161)))), ((int)(((byte)(226)))));
-            this.btnRevenue.HoverState.CustomBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(29)))), ((int)(((byte)(97)))));
-            this.btnRevenue.HoverState.FillColor = System.Drawing.Color.White;
-            this.btnRevenue.ImageSize = new System.Drawing.Size(30, 30);
-            this.btnRevenue.Location = new System.Drawing.Point(3, 402);
-            this.btnRevenue.Name = "btnRevenue";
-            this.btnRevenue.Size = new System.Drawing.Size(90, 46);
-            this.btnRevenue.TabIndex = 2;
-            this.btnRevenue.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnRevenue_Click);
-            // 
             // btnDashboard
             // 
+            this.btnDashboard.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnDashboard.BorderRadius = 10;
             this.btnDashboard.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(161)))), ((int)(((byte)(226)))));
             this.btnDashboard.CustomBorderThickness = new System.Windows.Forms.Padding(0, 0, 5, 0);
-            this.btnDashboard.CustomImages.CheckedImage = ((System.Drawing.Image)(resources.GetObject("resource.CheckedImage5")));
-            this.btnDashboard.CustomImages.HoveredImage = ((System.Drawing.Image)(resources.GetObject("resource.HoveredImage5")));
-            this.btnDashboard.CustomImages.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image5")));
+            this.btnDashboard.CustomImages.CheckedImage = ((System.Drawing.Image)(resources.GetObject("resource.CheckedImage2")));
+            this.btnDashboard.CustomImages.HoveredImage = ((System.Drawing.Image)(resources.GetObject("resource.HoveredImage2")));
+            this.btnDashboard.CustomImages.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image2")));
             this.btnDashboard.CustomImages.ImageAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.btnDashboard.CustomImages.ImageSize = new System.Drawing.Size(30, 30);
             this.btnDashboard.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
@@ -307,7 +186,7 @@ namespace TaskManagement
             this.btnDashboard.HoverState.CustomBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(29)))), ((int)(((byte)(97)))));
             this.btnDashboard.HoverState.FillColor = System.Drawing.Color.White;
             this.btnDashboard.ImageSize = new System.Drawing.Size(30, 30);
-            this.btnDashboard.Location = new System.Drawing.Point(3, 132);
+            this.btnDashboard.Location = new System.Drawing.Point(3, 292);
             this.btnDashboard.Name = "btnDashboard";
             this.btnDashboard.Size = new System.Drawing.Size(90, 46);
             this.btnDashboard.TabIndex = 1;
@@ -353,7 +232,7 @@ namespace TaskManagement
             this.gbRemote.Controls.Add(this.lblSelectedDateRemote);
             this.gbRemote.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbRemote.ForeColor = System.Drawing.Color.Black;
-            this.gbRemote.Location = new System.Drawing.Point(9, 268);
+            this.gbRemote.Location = new System.Drawing.Point(9, 279);
             this.gbRemote.Name = "gbRemote";
             this.gbRemote.Size = new System.Drawing.Size(224, 300);
             this.gbRemote.TabIndex = 2;
@@ -450,7 +329,7 @@ namespace TaskManagement
             // calendarWorkingStatus
             // 
             this.calendarWorkingStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.calendarWorkingStatus.Location = new System.Drawing.Point(9, 507);
+            this.calendarWorkingStatus.Location = new System.Drawing.Point(9, 528);
             this.calendarWorkingStatus.Name = "calendarWorkingStatus";
             this.calendarWorkingStatus.TabIndex = 0;
             this.calendarWorkingStatus.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.calendarWorkingStatus_DateChanged);
@@ -461,10 +340,7 @@ namespace TaskManagement
             this.pnlDashboard.BorderRadius = 10;
             this.pnlDashboard.BorderThickness = 2;
             this.pnlDashboard.Controls.Add(this.ucUser1);
-            this.pnlDashboard.Controls.Add(this.ucRevenue1);
-            this.pnlDashboard.Controls.Add(this.ucCoding1);
             this.pnlDashboard.Controls.Add(this.ucDashboard1);
-            this.pnlDashboard.Controls.Add(this.ucMarketing1);
             this.pnlDashboard.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlDashboard.FillColor = System.Drawing.Color.Silver;
             this.pnlDashboard.Location = new System.Drawing.Point(96, 0);
@@ -480,22 +356,6 @@ namespace TaskManagement
             this.ucUser1.Size = new System.Drawing.Size(927, 0);
             this.ucUser1.TabIndex = 5;
             // 
-            // ucRevenue1
-            // 
-            this.ucRevenue1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucRevenue1.Location = new System.Drawing.Point(0, 154);
-            this.ucRevenue1.Name = "ucRevenue1";
-            this.ucRevenue1.Size = new System.Drawing.Size(927, 0);
-            this.ucRevenue1.TabIndex = 4;
-            // 
-            // ucCoding1
-            // 
-            this.ucCoding1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucCoding1.Location = new System.Drawing.Point(0, 154);
-            this.ucCoding1.Name = "ucCoding1";
-            this.ucCoding1.Size = new System.Drawing.Size(927, 0);
-            this.ucCoding1.TabIndex = 3;
-            // 
             // ucDashboard1
             // 
             this.ucDashboard1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -505,64 +365,50 @@ namespace TaskManagement
             this.ucDashboard1.TabIndex = 0;
             this.ucDashboard1.Load += new System.EventHandler(this.ucDashboard1_Load);
             // 
-            // ucMarketing1
+            // pnlShowTheme
             // 
-            this.ucMarketing1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucMarketing1.Location = new System.Drawing.Point(0, 0);
-            this.ucMarketing1.Name = "ucMarketing1";
-            this.ucMarketing1.Size = new System.Drawing.Size(927, 154);
-            this.ucMarketing1.TabIndex = 3;
+            this.pnlShowTheme.BackColor = System.Drawing.Color.Silver;
+            this.pnlShowTheme.BorderColor = System.Drawing.Color.White;
+            this.pnlShowTheme.Controls.Add(this.pnlShow);
+            this.pnlShowTheme.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlShowTheme.Location = new System.Drawing.Point(96, 154);
+            this.pnlShowTheme.Name = "pnlShowTheme";
+            this.pnlShowTheme.Size = new System.Drawing.Size(927, 578);
+            this.pnlShowTheme.TabIndex = 5;
             // 
-            // pnlProjectShow
+            // pnlShow
             // 
-            this.pnlProjectShow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.pnlShow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlProjectShow.BackColor = System.Drawing.Color.White;
-            this.pnlProjectShow.BorderColor = System.Drawing.Color.White;
-            this.pnlProjectShow.BorderRadius = 10;
-            this.pnlProjectShow.BorderThickness = 5;
-            this.pnlProjectShow.Controls.Add(this.ucSprintShowDashboard1);
-            this.pnlProjectShow.Controls.Add(this.ucProjectShowCoding1);
-            this.pnlProjectShow.Controls.Add(this.ucProjectShowDashboard1);
-            this.pnlProjectShow.Controls.Add(this.ucProjectShowMarketing1);
-            this.pnlProjectShow.Location = new System.Drawing.Point(102, 160);
-            this.pnlProjectShow.Name = "pnlProjectShow";
-            this.pnlProjectShow.Size = new System.Drawing.Size(918, 566);
-            this.pnlProjectShow.TabIndex = 3;
+            this.pnlShow.BackColor = System.Drawing.Color.White;
+            this.pnlShow.BorderColor = System.Drawing.Color.Silver;
+            this.pnlShow.BorderRadius = 10;
+            this.pnlShow.BorderThickness = 1;
+            this.pnlShow.Controls.Add(this.ucSprintCardShow1);
+            this.pnlShow.Controls.Add(this.ucProjectCardShow1);
+            this.pnlShow.Location = new System.Drawing.Point(6, 6);
+            this.pnlShow.Name = "pnlShow";
+            this.pnlShow.Size = new System.Drawing.Size(915, 560);
+            this.pnlShow.TabIndex = 5;
             // 
-            // ucSprintShowDashboard1
+            // ucProjectCardShow1
             // 
-            this.ucSprintShowDashboard1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucSprintShowDashboard1.Location = new System.Drawing.Point(0, 0);
-            this.ucSprintShowDashboard1.Name = "ucSprintShowDashboard1";
-            this.ucSprintShowDashboard1.Size = new System.Drawing.Size(918, 566);
-            this.ucSprintShowDashboard1.TabIndex = 3;
+            this.ucProjectCardShow1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ucProjectCardShow1.Location = new System.Drawing.Point(3, 3);
+            this.ucProjectCardShow1.Name = "ucProjectCardShow1";
+            this.ucProjectCardShow1.Size = new System.Drawing.Size(909, 554);
+            this.ucProjectCardShow1.TabIndex = 0;
             // 
-            // ucProjectShowCoding1
+            // ucSprintCardShow1
             // 
-            this.ucProjectShowCoding1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucProjectShowCoding1.Location = new System.Drawing.Point(0, 0);
-            this.ucProjectShowCoding1.Name = "ucProjectShowCoding1";
-            this.ucProjectShowCoding1.Size = new System.Drawing.Size(918, 566);
-            this.ucProjectShowCoding1.TabIndex = 2;
-            // 
-            // ucProjectShowDashboard1
-            // 
-            this.ucProjectShowDashboard1.BackColor = System.Drawing.Color.Gray;
-            this.ucProjectShowDashboard1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucProjectShowDashboard1.Location = new System.Drawing.Point(0, 0);
-            this.ucProjectShowDashboard1.Name = "ucProjectShowDashboard1";
-            this.ucProjectShowDashboard1.Size = new System.Drawing.Size(918, 566);
-            this.ucProjectShowDashboard1.TabIndex = 0;
-            // 
-            // ucProjectShowMarketing1
-            // 
-            this.ucProjectShowMarketing1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucProjectShowMarketing1.Location = new System.Drawing.Point(0, 0);
-            this.ucProjectShowMarketing1.Name = "ucProjectShowMarketing1";
-            this.ucProjectShowMarketing1.Size = new System.Drawing.Size(918, 566);
-            this.ucProjectShowMarketing1.TabIndex = 1;
+            this.ucSprintCardShow1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucSprintCardShow1.Location = new System.Drawing.Point(0, 0);
+            this.ucSprintCardShow1.Name = "ucSprintCardShow1";
+            this.ucSprintCardShow1.Size = new System.Drawing.Size(915, 560);
+            this.ucSprintCardShow1.TabIndex = 1;
             // 
             // DashboardForm
             // 
@@ -571,7 +417,7 @@ namespace TaskManagement
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(1265, 732);
-            this.Controls.Add(this.pnlProjectShow);
+            this.Controls.Add(this.pnlShowTheme);
             this.Controls.Add(this.pnlDashboard);
             this.Controls.Add(this.pnlPlaceTime);
             this.Controls.Add(this.pnlSideBar);
@@ -589,7 +435,8 @@ namespace TaskManagement
             this.gbOnSite.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picOnSite)).EndInit();
             this.pnlDashboard.ResumeLayout(false);
-            this.pnlProjectShow.ResumeLayout(false);
+            this.pnlShowTheme.ResumeLayout(false);
+            this.pnlShow.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -599,28 +446,15 @@ namespace TaskManagement
         private Guna.UI2.WinForms.Guna2GradientPanel pnlSideBar;
         private Guna.UI2.WinForms.Guna2PictureBox picVertexLogo;
         private Guna.UI2.WinForms.Guna2Button btnDashboard;
-        private Guna.UI2.WinForms.Guna2Button btnRevenue;
         private Guna.UI2.WinForms.Guna2Button btnUser;
         private Guna.UI2.WinForms.Guna2Button btnLogout;
-        private Guna.UI2.WinForms.Guna2Button btnCoding;
-        private Guna.UI2.WinForms.Guna2Button btnMarketing;
         private Guna.UI2.WinForms.Guna2Panel pnlPlaceTime;
         private Guna.UI2.WinForms.Guna2Panel pnlDashboard;
         private System.Windows.Forms.MonthCalendar calendarWorkingStatus;
-        private ucDashboard ucDashboard1;
+        public ucDashboard ucDashboard1;
         private System.Windows.Forms.Label lblDashboard;
-        private System.Windows.Forms.Label lblMarketing;
         private System.Windows.Forms.Label lblUser;
-        private System.Windows.Forms.Label lblRevenue;
-        private System.Windows.Forms.Label lblCoding;
-        private ucMarketing ucMarketing1;
-        private ucCoding ucCoding1;
-        private ucRevenue ucRevenue1;
         private ucUser ucUser1;
-        private Guna.UI2.WinForms.Guna2Panel pnlProjectShow;
-        public ucProjectShowDashboard ucProjectShowDashboard1;
-        private ucProjectShowMarketing ucProjectShowMarketing1;
-        private ucProjectShowCoding ucProjectShowCoding1;
         private Guna.UI2.WinForms.Guna2GroupBox gbOnSite;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblSelectedDateOnsite;
         private Guna.UI2.WinForms.Guna2PictureBox picOnSite;
@@ -629,6 +463,9 @@ namespace TaskManagement
         private Guna.UI2.WinForms.Guna2HtmlLabel lblSelectedDateRemote;
         private System.Windows.Forms.FlowLayoutPanel flpOnsite;
         private System.Windows.Forms.FlowLayoutPanel flpRemote;
-        public ucSprintShowDashboard ucSprintShowDashboard1;
+        private Guna.UI2.WinForms.Guna2Panel pnlShowTheme;
+        public Guna.UI2.WinForms.Guna2Panel pnlShow;
+        private ucProjectCardShow ucProjectCardShow1;
+        private ucSprintCardShow ucSprintCardShow1;
     }
 }

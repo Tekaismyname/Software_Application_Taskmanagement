@@ -62,6 +62,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAL\DataAccess.cs" />
+    <Compile Include="GUI\Forms\DetailShow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\DetailShow.Designer.cs">
+      <DependentUpon>DetailShow.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Forms\DashboardForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,10 +87,11 @@
     <Compile Include="GUI\Forms\ProjectForm.Designer.cs">
       <DependentUpon>ProjectForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ProjectManagementDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProjectManagementDataSet.xsd</DependentUpon>
+    <Compile Include="GUI\Components\ProjectCard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Components\ProjectCard.Designer.cs">
+      <DependentUpon>ProjectCard.cs</DependentUpon>
     </Compile>
     <Compile Include="DTO\Projects.cs" />
     <Compile Include="BLL\ProjectShowBLL.cs" />
@@ -94,24 +101,6 @@
     </Compile>
     <Compile Include="GUI\Components\ucDashboard.Designer.cs">
       <DependentUpon>ucDashboard.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Components\ucCoding.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GUI\Components\ucCoding.Designer.cs">
-      <DependentUpon>ucCoding.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Components\ucMarketing.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GUI\Components\ucMarketing.Designer.cs">
-      <DependentUpon>ucMarketing.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Components\ucRevenue.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GUI\Components\ucRevenue.Designer.cs">
-      <DependentUpon>ucRevenue.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\Components\ucUser.cs">
       <SubType>UserControl</SubType>
@@ -124,18 +113,6 @@
     </Compile>
     <Compile Include="GUI\Components\ucProjectShowDashboard.Designer.cs">
       <DependentUpon>ucProjectShowDashboard.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Components\ucProjectShowMarketing.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GUI\Components\ucProjectShowMarketing.Designer.cs">
-      <DependentUpon>ucProjectShowMarketing.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Components\ucProjectShowCoding.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GUI\Components\ucProjectShowCoding.Designer.cs">
-      <DependentUpon>ucProjectShowCoding.cs</DependentUpon>
     </Compile>
     <Compile Include="DTO\Sprint.cs" />
     <Compile Include="DAL\SprintDAL.cs" />
@@ -153,6 +130,54 @@
       <DependentUpon>ucSprintShowDashboard.cs</DependentUpon>
     </Compile>
     <Compile Include="DTO\User.cs" />
+    <Compile Include="GUI\Components\SprintCard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Components\SprintCard.Designer.cs">
+      <DependentUpon>SprintCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\Task.cs" />
+    <Compile Include="GUI\Components\TaskCard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Components\TaskCard.Designer.cs">
+      <DependentUpon>TaskCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Components\ucProjectCardShow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Components\ucProjectCardShow.Designer.cs">
+      <DependentUpon>ucProjectCardShow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Components\ucSprintCardShow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Components\ucSprintCardShow.Designer.cs">
+      <DependentUpon>ucSprintCardShow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\TaskForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\TaskForm.Designer.cs">
+      <DependentUpon>TaskForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Components\ucTaskCardShow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Components\ucTaskCardShow.Designer.cs">
+      <DependentUpon>ucTaskCardShow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Components\ucTaskViewPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Components\ucTaskViewPanel.Designer.cs">
+      <DependentUpon>ucTaskViewPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\TaskDAL.cs" />
+    <Compile Include="BLL\TaskShowBLL.cs" />
+    <EmbeddedResource Include="GUI\Forms\DetailShow.resx">
+      <DependentUpon>DetailShow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\Forms\DashboardForm.resx">
       <DependentUpon>DashboardForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -161,6 +186,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Forms\ProjectForm.resx">
       <DependentUpon>ProjectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Components\ProjectCard.resx">
+      <DependentUpon>ProjectCard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -174,26 +202,11 @@
     <EmbeddedResource Include="GUI\Components\ucDashboard.resx">
       <DependentUpon>ucDashboard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Components\ucCoding.resx">
-      <DependentUpon>ucCoding.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Components\ucMarketing.resx">
-      <DependentUpon>ucMarketing.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Components\ucRevenue.resx">
-      <DependentUpon>ucRevenue.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="GUI\Components\ucUser.resx">
       <DependentUpon>ucUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Components\ucProjectShowDashboard.resx">
       <DependentUpon>ucProjectShowDashboard.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Components\ucProjectShowMarketing.resx">
-      <DependentUpon>ucProjectShowMarketing.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Components\ucProjectShowCoding.resx">
-      <DependentUpon>ucProjectShowCoding.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Forms\SprintForm.resx">
       <DependentUpon>SprintForm.cs</DependentUpon>
@@ -201,18 +214,28 @@
     <EmbeddedResource Include="GUI\Components\ucSprintShowDashboard.resx">
       <DependentUpon>ucSprintShowDashboard.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Components\SprintCard.resx">
+      <DependentUpon>SprintCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Components\TaskCard.resx">
+      <DependentUpon>TaskCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Components\ucProjectCardShow.resx">
+      <DependentUpon>ucProjectCardShow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Components\ucSprintCardShow.resx">
+      <DependentUpon>ucSprintCardShow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Forms\TaskForm.resx">
+      <DependentUpon>TaskForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Components\ucTaskCardShow.resx">
+      <DependentUpon>ucTaskCardShow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Components\ucTaskViewPanel.resx">
+      <DependentUpon>ucTaskViewPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
-    <None Include="ProjectManagementDataSet.xsc">
-      <DependentUpon>ProjectManagementDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="ProjectManagementDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>ProjectManagementDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="ProjectManagementDataSet.xss">
-      <DependentUpon>ProjectManagementDataSet.xsd</DependentUpon>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

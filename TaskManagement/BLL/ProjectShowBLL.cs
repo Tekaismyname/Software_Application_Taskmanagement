@@ -11,8 +11,8 @@ namespace TaskManagement
     internal class ProjectShowBLL
     {
         private DataAccess dal = new DataAccess();
-        //public bool AddProject(Project p) => dal.AddProject(p);
-        public int AddProject(Project p) => dal.AddProjectReturnId(p);
+        public bool AddProject(Project p) => dal.AddProject(p);
+        public int AddProjectReturnId(Project p) => dal.AddProjectReturnId(p);
         public bool DeleteProject(int id) => dal.DeleteProject(id);
         
         public void DeleteUsersFromProjects(int projectID) => dal.DeleteUsersFromProject(projectID);
@@ -23,6 +23,7 @@ namespace TaskManagement
         public List<int> GetUserIDsByProject(int projectId) => dal.GetUserIDsByProject(projectId);
         // Tra ve danh sach Project
         public DataTable getProjectList() => dal.GetAllProjects();
+        public List<Project> GetProjectsWithStats() => dal.GetProjectsWithStats();
         //Tra ve mang danh sach User
         public List<User> GetAllUsers() => dal.GetAllUsers();
         //Tra ve tat ca phong ban

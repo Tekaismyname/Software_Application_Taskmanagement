@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
+using TaskManagement.BLL;
+using TaskManagement.DAL;
 using TaskManagement.DTO;
 
 namespace TaskManagement
@@ -14,8 +17,11 @@ namespace TaskManagement
     public partial class ProjectForm : Form
     {
         private string Mode;
+        private Project editingProject;
+
         private Project currentProject;
 
+        private SprintShowBLL sprintbll = new SprintShowBLL();  
         private ProjectShowBLL bll = new ProjectShowBLL();
         Project p = new Project();
         public ucProjectShowDashboard show = new ucProjectShowDashboard();
@@ -35,19 +41,19 @@ namespace TaskManagement
         {
             btnAdd.Enabled = false;
             btnEdit.Enabled = false;
-            btnDelete.Enabled = false;
             switch (Mode)
             {
                 case "Add":
                     btnAdd.Enabled = true;
-                    btnCheckID.Visible = false;
+                    btnEdit.Visible = false;
+                    btnEdit.Enabled = false;
+                    txtID.Visible = true;
+                    cboProjectIDName.Visible = false;
                     break;
                 case "Edit":
                     btnEdit.Enabled = true;
-                    break;
-                case "Delete":
-                    btnDelete.Enabled = true;
-                    btnCheckID.Visible = false;
+                    txtID.Visible = false;
+                    btnAdd.Visible = false;
                     break;
             }
         }
@@ -56,6 +62,7 @@ namespace TaskManagement
         {
             LoadUserList();
             LoadDepartment();
+            LoadProjectComboBox();
         }
         //Load danh sach Projects
         //Load danh sach User vao CheckedListBox
@@ -86,6 +93,33 @@ namespace TaskManagement
             cboDept.SelectedIndex = -1; //Khong tu chon
         }
 
+        public void SetAddMode()
+        {
+            editingProject = null;
+            this.Text = "Add Project";
+
+            // Hiển thị nút Add, ẩn nút Edit/Delete
+            btnAdd.Visible = true;
+            btnEdit.Visible = false;
+            cboProjectIDName.Visible = false;
+
+            // Xoá dữ liệu cũ trong các field
+            txtProName.Text = "";
+            txtBacklog.Text = "";
+            txtRevenue.Text = "0";
+            cboDept.SelectedIndex = -1;
+            dtpStart.Value = DateTime.Today;
+            dtpEnd.Value = DateTime.Today.AddDays(7);
+
+            clbUsers.Items.Clear();
+            var users = new ProjectShowBLL().GetAllUsers();
+            foreach (var u in users)
+            {
+                clbUsers.Items.Add(u.FullName, false);
+            }
+        }
+
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
             Project p = new Project
@@ -99,100 +133,98 @@ namespace TaskManagement
                 DueDate = dtpEnd.Value,
                 DepartmentID = Convert.ToInt32(cboDept.SelectedValue)
             };
-            int newProjectId = bll.AddProject(p);
-            List<int> userIDs = new List<int>();
-            foreach (var item in clbUsers.CheckedItems)
+            ProjectShowBLL bll = new ProjectShowBLL();
+            bool added = bll.AddProject(p);
+
+            if (!added)
             {
-                string fullName = item.ToString();
-                var user = bll.GetAllUsers().FirstOrDefault(u => u.FullName == fullName);
-                if (user != null)
-                    userIDs.Add(user.UserID);
+                MessageBox.Show("Thêm project thất bại!");
+                return;
             }
-            bll.AssignUsersToProject(newProjectId, userIDs);
-            MessageBox.Show("Add project successfully!");
-            bll.getProjectList();
-            //Lam moi dashboard de load du lieu moi len
-            ((DashboardForm)Application.OpenForms["DashboardForm"]).ucProjectShowDashboard1.LoadData();
-        }
 
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            int projectID = int.Parse(txtID.Text);
-            bll.DeleteUsersFromProjects(projectID);
-            bll.DeleteProject(projectID);
-            MessageBox.Show("Delete project successfully!");
-            ((DashboardForm)Application.OpenForms["DashboardForm"]).ucProjectShowDashboard1.LoadData();
-            ClearForm();
-        }
-        private void ClearForm()
-        {
-            txtID.Clear();
-            txtProName.Clear();
-            txtBacklog.Clear();
-            txtRevenue.Clear();
-            cboDept.SelectedIndex = -1;
-            dtpStart.Value = DateTime.Now;
-            dtpEnd.Value = DateTime.Now;
-
+            // Gán user vào project
+            List<int> userIDs = new List<int>();
+            List<User> allUsers = bll.GetAllUsers();
             for (int i = 0; i < clbUsers.Items.Count; i++)
-                clbUsers.SetItemChecked(i, false);
+            {
+                if (clbUsers.GetItemChecked(i))
+                {
+                    string name = clbUsers.Items[i].ToString();
+                    var user = allUsers.FirstOrDefault(u => u.FullName == name);
+                    if (user != null) userIDs.Add(user.UserID);
+                }
+            }
+
+            bll.AssignUsersToProject(p.ProjectID, userIDs);
+
+            MessageBox.Show("Thêm project thành công!");
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+            //((DashboardForm)Application.OpenForms["DashboardForm"]).LoadProjectCardsToPanel();
+        }
+        public void SetEditMode(int projectId)
+        {
+            Mode = "Edit";
+            this.Text = "Edit Project";
+
+            ProjectShowBLL bll = new ProjectShowBLL();
+            editingProject = bll.GetProjectById(projectId);
+
+            if (editingProject != null)
+            {
+                // gán giá trị lên các control form
+                txtProName.Text = editingProject.ProjectName;
+                txtBacklog.Text = editingProject.Description;
+                dtpStart.Value = editingProject.StartDate;
+                dtpEnd.Value = editingProject.DueDate;
+                cboDept.SelectedValue = editingProject.DepartmentID;
+                txtRevenue.Text = editingProject.Revenue.ToString();
+            }
+
+            btnAdd.Visible = false;
+            btnEdit.Visible = true;
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            int projectID = int.Parse(txtID.Text);
-            Project updated = new Project
+            if (editingProject == null) return;
+            editingProject.ProjectName = txtProName.Text;
+            editingProject.Description = txtBacklog.Text;
+            editingProject.StartDate = dtpStart.Value;
+            editingProject.DueDate = dtpEnd.Value;
+            editingProject.DepartmentID = (int)cboDept.SelectedValue;
+            editingProject.Revenue = decimal.Parse(txtRevenue.Text);
+
+            ProjectShowBLL bll = new ProjectShowBLL();
+            bool success = bll.UpdateProject(editingProject);
+
+            if (success)
             {
-                ProjectID = projectID,
-                ProjectName = txtProName.Text,
-                Description = txtBacklog.Text,
-                Status = "Đang thực hiện",
-                Revenue = decimal.Parse(txtRevenue.Text),
-                StartDate = dtpStart.Value,
-                DueDate = dtpEnd.Value,
-                DepartmentID = Convert.ToInt32(cboDept.SelectedValue)
-            };
-            bll.UpdateProject(updated);
-            List<int> userIDs = new List<int>();
-            foreach (var item in clbUsers.CheckedItems)
-            {
-                string fullName = item.ToString();
-                var user = bll.GetAllUsers().FirstOrDefault(u => u.FullName == fullName);
-                if (user != null)
-                    userIDs.Add(user.UserID);
+                // 1. Lấy danh sách người dùng được chọn
+                List<int> selectedUserIDs = new List<int>();
+                List<User> allUsers = bll.GetAllUsers();
+                for (int i = 0; i < clbUsers.Items.Count; i++)
+                {
+                    if (clbUsers.GetItemChecked(i))
+                    {
+                        string name = clbUsers.Items[i].ToString();
+                        var user = allUsers.FirstOrDefault(u => u.FullName == name);
+                        if (user != null) selectedUserIDs.Add(user.UserID);
+                    }
+                }
+
+                // 2. Cập nhật lại bảng ProjectMembers
+                bll.DeleteUsersFromProjects(editingProject.ProjectID);
+                bll.AssignUsersToProject(editingProject.ProjectID, selectedUserIDs);
+
+                MessageBox.Show("Cập nhật thành công.");
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
-            bll.DeleteUsersFromProjects(projectID);
-            bll.AssignUsersToProject(projectID, userIDs);
-            ((DashboardForm)Application.OpenForms["DashboardForm"]).ucProjectShowDashboard1.LoadData();
-            MessageBox.Show("Update project successfully!");
-        }
-
-        private void btnCheckID_Click(object sender, EventArgs e)
-        {
-            int id;
-            if (!int.TryParse(txtID.Text, out id))
+            else
             {
-                MessageBox.Show("Please enter a valid Project ID.");
-                return;
+                MessageBox.Show("Update failed!");
             }
-
-            currentProject = bll.GetProjectById(id);
-            if (currentProject == null) 
-            {
-                MessageBox.Show("Project not found. You can add a new project");
-                return;
-            }
-
-            txtProName.Text = currentProject.ProjectName;
-            txtBacklog.Text = currentProject.Description;
-            txtRevenue.Text = currentProject.Revenue.ToString();
-            dtpStart.Value = currentProject.StartDate;
-            dtpEnd.Value = currentProject.DueDate;
-            cboDept.SelectedValue = currentProject.DepartmentID;
-
-            LoadCheckedUsersForProject(id);
-
-            MessageBox.Show("Successfully upload the data from projectID: " + (id));
         }
 
         private void LoadCheckedUsersForProject(int projectID)
@@ -208,6 +240,59 @@ namespace TaskManagement
                     clbUsers.SetItemChecked(index, true);
             }
         }
+        private void LoadProjectComboBox()
+        {
 
+            DataTable dt = sprintbll.GetProjectIdAndName();
+
+            dt.Columns.Add("Display", typeof(string));
+            foreach (DataRow row in dt.Rows)
+            {
+                row["Display"] = row["ProjectID"] + " - " + row["ProjectName"];
+            }
+
+            cboProjectIDName.DataSource = dt;
+            cboProjectIDName.DisplayMember = "Display";
+            cboProjectIDName.ValueMember = "ProjectID";
+            cboProjectIDName.SelectedIndex = -1;
+        }
+
+        private void cboProjectIDName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboProjectIDName.SelectedValue == null || cboProjectIDName.SelectedIndex == -1)
+                return;
+
+            try
+            {
+                int projectID = Convert.ToInt32(cboProjectIDName.SelectedValue);
+                Project p = bll.GetProjectById(projectID);
+
+                if (p != null)
+                {
+                    txtProName.Text = p.ProjectName;
+                    txtBacklog.Text = p.Description;
+                    txtRevenue.Text = p.Revenue.ToString();
+                    dtpStart.Value = p.StartDate;
+                    dtpEnd.Value = p.DueDate;
+                    cboDept.SelectedValue = p.DepartmentID;
+
+                    // Nếu có clbProjectUsers:
+                    List<int> assignedUserIDs = bll.GetUserIDsByProject(projectID);
+                    List<User> allUsers = bll.GetAllUsers();
+
+                    clbUsers.Items.Clear();
+                    foreach (User user in allUsers)
+                    {
+                        int idx = clbUsers.Items.Add(user.FullName);
+                        if (assignedUserIDs.Contains(user.UserID))
+                            clbUsers.SetItemChecked(idx, true);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Fail to load project: " + ex.Message);
+            }
+        }
     }
 }

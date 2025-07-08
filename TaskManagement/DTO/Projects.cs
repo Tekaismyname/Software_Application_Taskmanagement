@@ -13,10 +13,13 @@ namespace TaskManagement.DTO
         public string Description { get; set; }
         public string Status { get; set; } = "Đang thực hiện";
         public decimal Revenue { get; set; }
+        public string AssignedTo { get; set; }  
         public DateTime StartDate { get; set; }
         public DateTime DueDate { get; set; }
         public int DepartmentID { get; set; }
         public string DepartmentName { get; set; }
+        public int NumSprints { get; set; } 
+        public int NumMembers { get; set; }
 
     }
 }

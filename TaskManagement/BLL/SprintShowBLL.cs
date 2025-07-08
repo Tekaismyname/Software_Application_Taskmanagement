@@ -21,10 +21,10 @@ namespace TaskManagement.BLL
         }
 
         public bool UpdateSprint(Sprint sprint) => dal.UpdateSprint(sprint);
-
+      
         public DataTable GetProjectIdAndName() => dal.GetProjectIdAndName();
 
-        public DataTable GetSprintsByProject(int projectId) => dal.GetSprintsByProject(projectId);
+        public List<Sprint> GetSprintsByProject(int projectId) => dal.GetSprintsByProject(projectId);
 
         public Sprint GetSprintById(int sprintId, int projectId) => dal.GetSprintById(sprintId, projectId);
 

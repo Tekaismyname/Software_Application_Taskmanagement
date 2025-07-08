@@ -9,12 +9,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TaskManagement.DTO;
 
 
 namespace TaskManagement
 {
     public partial class ucDashboard : UserControl
     {
+        public event EventHandler AddProjectRequested;
+        public event Action<List<Project>> RequestShowProjectCards;
+        public event Action<Project> RequestShowProjectDetails;
         public event EventHandler ProjectButtonClicked;
         public event EventHandler SprintButtonClicked;
         ProjectShowBLL bll = new ProjectShowBLL();
@@ -30,7 +34,7 @@ namespace TaskManagement
         }
         private Guna2Button selectedButton = null;
 
-        private void HandleButtonClick(Guna2Button btn)
+        public void HandleButtonClick(Guna2Button btn)
         {
             if (selectedButton != null)
             {
@@ -50,9 +54,8 @@ namespace TaskManagement
             HandleButtonClick(btnProjects);
             picAction.Visible = true;
             cboActionDashboard.Visible = true;
-            picSprintAction.Visible = false;
             cboActionSprint.Visible = false;
-
+            btnAddProject.Visible = true;
             ProjectButtonClicked?.Invoke(this, EventArgs.Empty);
         }
 
@@ -61,8 +64,7 @@ namespace TaskManagement
             HandleButtonClick(btnSprints);
             picAction.Visible = false;
             cboActionDashboard.Visible = false;
-            picSprintAction.Visible = true;
-            cboActionSprint.Visible = true;
+            btnAddProject.Visible = false;
 
             SprintButtonClicked?.Invoke(this, EventArgs.Empty);
         }
@@ -72,14 +74,14 @@ namespace TaskManagement
             HandleButtonClick(btnReports);
             picAction.Visible = false;
             cboActionDashboard.Visible = false;
-            picSprintAction.Visible = false;
-            cboActionSprint.Visible = false;
+           
         }
 
         private void ucDashboard_Load(object sender, EventArgs e)
         {
             btnProjects_Click(btnProjects, null);
         }
+
 
         private void cboActionDashboard_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -88,13 +90,22 @@ namespace TaskManagement
             projectForm.ShowDialog();
             ProjectDataChanged?.Invoke(this, EventArgs.Empty);
         }
-
         private void cboActionSprint_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (cboActionSprint.SelectedItem == null) return;
+
             string selectedAction = cboActionSprint.SelectedItem.ToString();
             SprintForm sprintForm = new SprintForm(selectedAction);
             sprintForm.ShowDialog();
-            ProjectDataChanged?.Invoke(this, EventArgs.Empty);
+
+            // Nếu cần load lại dữ liệu, bạn khai báo event tương tự Project:
+            //SprintDataChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void btnAddProject_Click(object sender, EventArgs e)
+        {
+            AddProjectRequested?.Invoke(this, EventArgs.Empty);
+
         }
     }
 }

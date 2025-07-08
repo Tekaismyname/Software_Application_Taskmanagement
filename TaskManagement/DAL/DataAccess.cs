@@ -275,6 +275,64 @@ namespace TaskManagement
             }
             return null;
         }
+        public List<Project> GetProjectsWithStats()
+        {
+            List<Project> projects = new List<Project>();
+            string query = @"
+            SELECT 
+                P.ProjectID,
+                P.ProjectName,
+                P.Description,
+                P.Status,
+                P.Revenue,
+                P.StartDate,
+                P.DueDate,
+                P.DepartmentID,
+                D.DepartmentName,
+                -- Tổng số sprint trong project
+                (SELECT COUNT(*) FROM Sprints S WHERE S.ProjectID = P.ProjectID) AS NumSprints,
+                -- Tổng số thành viên trong project
+                (SELECT COUNT(*) FROM ProjectMembers PM WHERE PM.ProjectID = P.ProjectID) AS NumMembers,
+                -- ✅ Danh sách người tham gia
+                (
+                    SELECT STRING_AGG(U.FullName, ', ')
+                    FROM ProjectMembers PM
+                    JOIN Users U ON PM.UserID = U.UserID
+                    WHERE PM.ProjectID = P.ProjectID
+                ) AS AssignedTo
+            FROM Projects P
+            LEFT JOIN Departments D ON P.DepartmentID = D.DepartmentID";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                conn.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Project p = new Project
+                        {
+                            ProjectID = reader.GetInt32(0),
+                            ProjectName = reader.GetString(1),
+                            Description = reader.GetString(2),
+                            Status = reader.GetString(3),
+                            Revenue = reader.GetDecimal(4),
+                            StartDate = reader.GetDateTime(5),
+                            DueDate = reader.GetDateTime(6),
+                            DepartmentID = reader.GetInt32(7),
+                            DepartmentName = reader.GetString(8),
+                            NumSprints = reader.GetInt32(9),
+                            NumMembers = reader.GetInt32(10),
+                            AssignedTo = reader.IsDBNull(11) ? "" : reader.GetString(11)
+                        };
+                        projects.Add(p);
+                    }
+                }
+            }
+
+            return projects;
+        }
         //Dung cho pnlPlaceTime
         //Get all working status by date    
         public DataTable GetWorkingStatusByDate(DateTime date)

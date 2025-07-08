@@ -57,6 +57,36 @@ CREATE TABLE WorkingStatus (
     WorkDate DATE NOT NULL,
     Status NVARCHAR(20) NOT NULL -- 'On-site' hoặc 'Remote'
 );
+CREATE TABLE Tasks (
+    TaskID INT NOT NULL,
+    SprintID INT NOT NULL,
+    ProjectID INT NOT NULL,
+    TaskName NVARCHAR(MAX) NOT NULL,
+    Description NVARCHAR(MAX),
+    StartDate DATE,
+    DueDate DATE,
+    Status NVARCHAR(50),
+
+    PRIMARY KEY (TaskID, SprintID, ProjectID),
+    FOREIGN KEY (SprintID, ProjectID) REFERENCES Sprints(SprintID, ProjectID)
+);
+CREATE TABLE TaskMembers (
+    TaskID INT NOT NULL,
+    SprintID INT NOT NULL,
+    ProjectID INT NOT NULL,
+    UserID INT NOT NULL,
+    PRIMARY KEY (TaskID, SprintID, ProjectID, UserID),
+    FOREIGN KEY (TaskID, SprintID, ProjectID) REFERENCES Tasks(TaskID, SprintID, ProjectID),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+);
+
+ALTER TABLE Tasks
+ADD CONSTRAINT FK_Tasks_Sprint_Project
+FOREIGN KEY (SprintID, ProjectID)
+REFERENCES Sprints(SprintID, ProjectID);
+exec sp_pkeys 'Sprints'
+EXEC sp_fkeys 'Sprints';
+
 USE ProjectManagement
 Alter table Sprints
 ADD Status NVARCHAR(50);
@@ -66,6 +96,7 @@ select * from Projects;
 select * from Sprints;
 select * from SprintMembers;
 select * from Users;
+select * from Tasks;
 select * from WorkingStatus;
 insert into SprintMembers values
 delete from Sprints where ProjectID = '3'
@@ -128,7 +159,7 @@ ADD CONSTRAINT PK_Sprints PRIMARY KEY (ProjectID, SprintID);
 DROP CONSTRAINT PK__Sprint__29F16AE0E3F2AD07
 
 exec sp_rename 'Sprint', 'Sprints';
-EXEC sp_fkeys 'Sprints';
+EXEC sp_fkeys 'Projects';
 ALTER TABLE SprintMembers
 add constraint PK_SprintMembers_ProjectID Primary key (ProjectID)
 add ProjectID int;
@@ -162,7 +193,7 @@ Update Sprints set Status = 'Đang thuc hien' where SprintID = 1;
 
 ALTER TABLE ProjectMembers add CONSTRAINT FK_ProjectMembers_Projects FOREIGN KEY (ProjectID) REFERENCES Projects(ProjectID);
 
--- Tạo danh sách ngày từ 2025-01-01 đến 2025-06-30
+-- Tạo danh sách ngày
 WITH DateRange AS (
     SELECT CAST('2025-06-11' AS DATE) AS WorkDate
     UNION ALL
@@ -209,4 +240,5 @@ FROM FinalInsertData
 OPTION (MAXRECURSION 0);
 
 delete from SprintMembers where SprintID = '1' and UserID = '1'
-select * from SprintMembers;
+
+SELECT * FROM Projects WHERE ProjectID =  1

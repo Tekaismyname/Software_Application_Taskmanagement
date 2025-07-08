@@ -29,21 +29,19 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SprintForm));
-            this.pnlAddProject = new Guna.UI2.WinForms.Guna2GradientPanel();
+            this.pnlCRUDSprint = new Guna.UI2.WinForms.Guna2GradientPanel();
+            this.lblProjectIDName = new System.Windows.Forms.Label();
+            this.lblSpintID = new System.Windows.Forms.Label();
             this.lblDept = new System.Windows.Forms.Label();
             this.txtSprintIdAdd = new Guna.UI2.WinForms.Guna2TextBox();
-            this.cboSprintID = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.cboProjectIDName = new Guna.UI2.WinForms.Guna2ComboBox();
             this.txtSprintBacklog = new Guna.UI2.WinForms.Guna2TextBox();
             this.lblSprintBacklog = new System.Windows.Forms.Label();
-            this.cboDept = new Guna.UI2.WinForms.Guna2ComboBox();
             this.clbSprintUsers = new System.Windows.Forms.CheckedListBox();
             this.btnSprintDelete = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnSprintEdit = new Guna.UI2.WinForms.Guna2GradientButton();
             this.dtpSprintEnd = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.dtpSprintStart = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.txtSprintName = new Guna.UI2.WinForms.Guna2TextBox();
-            this.txtSprintID = new Guna.UI2.WinForms.Guna2TextBox();
             this.btnSprintAdd = new Guna.UI2.WinForms.Guna2GradientButton();
             this.lblProjectID = new System.Windows.Forms.Label();
             this.lblSprintEnd = new System.Windows.Forms.Label();
@@ -53,48 +51,69 @@
             this.lblSprintName = new System.Windows.Forms.Label();
             this.lblSprintID = new System.Windows.Forms.Label();
             this.lblSprintTitle = new System.Windows.Forms.Label();
-            this.chkSprinStatus = new Guna.UI2.WinForms.Guna2CustomCheckBox();
-            this.pnlAddProject.SuspendLayout();
+            this.pnlCRUDSprint.SuspendLayout();
             this.SuspendLayout();
             // 
-            // pnlAddProject
+            // pnlCRUDSprint
             // 
-            this.pnlAddProject.Controls.Add(this.chkSprinStatus);
-            this.pnlAddProject.Controls.Add(this.lblDept);
-            this.pnlAddProject.Controls.Add(this.txtSprintIdAdd);
-            this.pnlAddProject.Controls.Add(this.cboSprintID);
-            this.pnlAddProject.Controls.Add(this.cboProjectIDName);
-            this.pnlAddProject.Controls.Add(this.txtSprintBacklog);
-            this.pnlAddProject.Controls.Add(this.lblSprintBacklog);
-            this.pnlAddProject.Controls.Add(this.cboDept);
-            this.pnlAddProject.Controls.Add(this.clbSprintUsers);
-            this.pnlAddProject.Controls.Add(this.btnSprintDelete);
-            this.pnlAddProject.Controls.Add(this.btnSprintEdit);
-            this.pnlAddProject.Controls.Add(this.dtpSprintEnd);
-            this.pnlAddProject.Controls.Add(this.dtpSprintStart);
-            this.pnlAddProject.Controls.Add(this.txtSprintName);
-            this.pnlAddProject.Controls.Add(this.txtSprintID);
-            this.pnlAddProject.Controls.Add(this.btnSprintAdd);
-            this.pnlAddProject.Controls.Add(this.lblProjectID);
-            this.pnlAddProject.Controls.Add(this.lblSprintEnd);
-            this.pnlAddProject.Controls.Add(this.lblSprintStart);
-            this.pnlAddProject.Controls.Add(this.lblDepartment);
-            this.pnlAddProject.Controls.Add(this.lblSprintAssigned);
-            this.pnlAddProject.Controls.Add(this.lblSprintName);
-            this.pnlAddProject.Controls.Add(this.lblSprintID);
-            this.pnlAddProject.Controls.Add(this.lblSprintTitle);
-            this.pnlAddProject.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlAddProject.FillColor = System.Drawing.Color.White;
-            this.pnlAddProject.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.pnlAddProject.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-            this.pnlAddProject.Location = new System.Drawing.Point(0, 0);
-            this.pnlAddProject.Name = "pnlAddProject";
-            this.pnlAddProject.Size = new System.Drawing.Size(782, 853);
-            this.pnlAddProject.TabIndex = 1;
+            this.pnlCRUDSprint.Controls.Add(this.lblProjectIDName);
+            this.pnlCRUDSprint.Controls.Add(this.lblSpintID);
+            this.pnlCRUDSprint.Controls.Add(this.lblDept);
+            this.pnlCRUDSprint.Controls.Add(this.txtSprintIdAdd);
+            this.pnlCRUDSprint.Controls.Add(this.txtSprintBacklog);
+            this.pnlCRUDSprint.Controls.Add(this.lblSprintBacklog);
+            this.pnlCRUDSprint.Controls.Add(this.clbSprintUsers);
+            this.pnlCRUDSprint.Controls.Add(this.btnSprintDelete);
+            this.pnlCRUDSprint.Controls.Add(this.btnSprintEdit);
+            this.pnlCRUDSprint.Controls.Add(this.dtpSprintEnd);
+            this.pnlCRUDSprint.Controls.Add(this.dtpSprintStart);
+            this.pnlCRUDSprint.Controls.Add(this.txtSprintName);
+            this.pnlCRUDSprint.Controls.Add(this.btnSprintAdd);
+            this.pnlCRUDSprint.Controls.Add(this.lblProjectID);
+            this.pnlCRUDSprint.Controls.Add(this.lblSprintEnd);
+            this.pnlCRUDSprint.Controls.Add(this.lblSprintStart);
+            this.pnlCRUDSprint.Controls.Add(this.lblDepartment);
+            this.pnlCRUDSprint.Controls.Add(this.lblSprintAssigned);
+            this.pnlCRUDSprint.Controls.Add(this.lblSprintName);
+            this.pnlCRUDSprint.Controls.Add(this.lblSprintID);
+            this.pnlCRUDSprint.Controls.Add(this.lblSprintTitle);
+            this.pnlCRUDSprint.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlCRUDSprint.FillColor = System.Drawing.Color.White;
+            this.pnlCRUDSprint.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.pnlCRUDSprint.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
+            this.pnlCRUDSprint.Location = new System.Drawing.Point(0, 0);
+            this.pnlCRUDSprint.Name = "pnlCRUDSprint";
+            this.pnlCRUDSprint.Size = new System.Drawing.Size(782, 853);
+            this.pnlCRUDSprint.TabIndex = 1;
+            // 
+            // lblProjectIDName
+            // 
+            this.lblProjectIDName.BackColor = System.Drawing.Color.White;
+            this.lblProjectIDName.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblProjectIDName.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProjectIDName.ForeColor = System.Drawing.Color.Black;
+            this.lblProjectIDName.Location = new System.Drawing.Point(305, 140);
+            this.lblProjectIDName.Name = "lblProjectIDName";
+            this.lblProjectIDName.Size = new System.Drawing.Size(307, 36);
+            this.lblProjectIDName.TabIndex = 37;
+            this.lblProjectIDName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblSpintID
+            // 
+            this.lblSpintID.BackColor = System.Drawing.Color.White;
+            this.lblSpintID.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblSpintID.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSpintID.ForeColor = System.Drawing.Color.Black;
+            this.lblSpintID.Location = new System.Drawing.Point(305, 196);
+            this.lblSpintID.Name = "lblSpintID";
+            this.lblSpintID.Size = new System.Drawing.Size(307, 36);
+            this.lblSpintID.TabIndex = 36;
+            this.lblSpintID.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblDept
             // 
             this.lblDept.BackColor = System.Drawing.Color.White;
+            this.lblDept.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblDept.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDept.ForeColor = System.Drawing.Color.Black;
             this.lblDept.Location = new System.Drawing.Point(305, 582);
@@ -105,6 +124,8 @@
             // 
             // txtSprintIdAdd
             // 
+            this.txtSprintIdAdd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.txtSprintIdAdd.BorderRadius = 10;
             this.txtSprintIdAdd.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtSprintIdAdd.DefaultText = "";
             this.txtSprintIdAdd.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
@@ -123,40 +144,10 @@
             this.txtSprintIdAdd.Size = new System.Drawing.Size(307, 36);
             this.txtSprintIdAdd.TabIndex = 32;
             // 
-            // cboSprintID
-            // 
-            this.cboSprintID.BackColor = System.Drawing.Color.Transparent;
-            this.cboSprintID.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cboSprintID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboSprintID.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cboSprintID.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cboSprintID.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.cboSprintID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
-            this.cboSprintID.ItemHeight = 30;
-            this.cboSprintID.Location = new System.Drawing.Point(305, 196);
-            this.cboSprintID.Name = "cboSprintID";
-            this.cboSprintID.Size = new System.Drawing.Size(307, 36);
-            this.cboSprintID.TabIndex = 32;
-            this.cboSprintID.SelectedIndexChanged += new System.EventHandler(this.cboSprintID_SelectedIndexChanged);
-            // 
-            // cboProjectIDName
-            // 
-            this.cboProjectIDName.BackColor = System.Drawing.Color.Transparent;
-            this.cboProjectIDName.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cboProjectIDName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboProjectIDName.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cboProjectIDName.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cboProjectIDName.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.cboProjectIDName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
-            this.cboProjectIDName.ItemHeight = 30;
-            this.cboProjectIDName.Location = new System.Drawing.Point(305, 140);
-            this.cboProjectIDName.Name = "cboProjectIDName";
-            this.cboProjectIDName.Size = new System.Drawing.Size(307, 36);
-            this.cboProjectIDName.TabIndex = 31;
-            this.cboProjectIDName.SelectedIndexChanged += new System.EventHandler(this.cboProjectIDName_SelectedIndexChanged);
-            // 
             // txtSprintBacklog
             // 
+            this.txtSprintBacklog.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.txtSprintBacklog.BorderRadius = 10;
             this.txtSprintBacklog.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtSprintBacklog.DefaultText = "";
             this.txtSprintBacklog.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
@@ -187,21 +178,6 @@
             this.lblSprintBacklog.Text = "Backlog:";
             this.lblSprintBacklog.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // cboDept
-            // 
-            this.cboDept.BackColor = System.Drawing.Color.Transparent;
-            this.cboDept.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cboDept.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboDept.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cboDept.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cboDept.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.cboDept.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
-            this.cboDept.ItemHeight = 30;
-            this.cboDept.Location = new System.Drawing.Point(305, 582);
-            this.cboDept.Name = "cboDept";
-            this.cboDept.Size = new System.Drawing.Size(307, 36);
-            this.cboDept.TabIndex = 27;
-            // 
             // clbSprintUsers
             // 
             this.clbSprintUsers.FormattingEnabled = true;
@@ -221,11 +197,12 @@
             this.btnSprintDelete.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(102)))));
             this.btnSprintDelete.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold);
             this.btnSprintDelete.ForeColor = System.Drawing.Color.White;
-            this.btnSprintDelete.Location = new System.Drawing.Point(519, 796);
+            this.btnSprintDelete.Location = new System.Drawing.Point(305, 796);
             this.btnSprintDelete.Name = "btnSprintDelete";
             this.btnSprintDelete.Size = new System.Drawing.Size(180, 45);
             this.btnSprintDelete.TabIndex = 24;
             this.btnSprintDelete.Text = "Delete";
+            this.btnSprintDelete.Click += new System.EventHandler(this.btnSprintDelete_Click);
             // 
             // btnSprintEdit
             // 
@@ -273,6 +250,8 @@
             // 
             // txtSprintName
             // 
+            this.txtSprintName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.txtSprintName.BorderRadius = 10;
             this.txtSprintName.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtSprintName.DefaultText = "";
             this.txtSprintName.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
@@ -291,27 +270,6 @@
             this.txtSprintName.Size = new System.Drawing.Size(307, 36);
             this.txtSprintName.TabIndex = 33;
             // 
-            // txtSprintID
-            // 
-            this.txtSprintID.BorderRadius = 10;
-            this.txtSprintID.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtSprintID.DefaultText = "";
-            this.txtSprintID.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.txtSprintID.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.txtSprintID.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtSprintID.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtSprintID.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtSprintID.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txtSprintID.ForeColor = System.Drawing.Color.Black;
-            this.txtSprintID.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtSprintID.Location = new System.Drawing.Point(305, 196);
-            this.txtSprintID.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtSprintID.Name = "txtSprintID";
-            this.txtSprintID.PlaceholderText = "";
-            this.txtSprintID.SelectedText = "";
-            this.txtSprintID.Size = new System.Drawing.Size(307, 36);
-            this.txtSprintID.TabIndex = 12;
-            // 
             // btnSprintAdd
             // 
             this.btnSprintAdd.BorderRadius = 10;
@@ -323,7 +281,7 @@
             this.btnSprintAdd.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(102)))));
             this.btnSprintAdd.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold);
             this.btnSprintAdd.ForeColor = System.Drawing.Color.White;
-            this.btnSprintAdd.Location = new System.Drawing.Point(84, 796);
+            this.btnSprintAdd.Location = new System.Drawing.Point(305, 796);
             this.btnSprintAdd.Name = "btnSprintAdd";
             this.btnSprintAdd.Size = new System.Drawing.Size(180, 45);
             this.btnSprintAdd.TabIndex = 10;
@@ -425,52 +383,33 @@
             this.lblSprintTitle.Name = "lblSprintTitle";
             this.lblSprintTitle.Size = new System.Drawing.Size(410, 60);
             this.lblSprintTitle.TabIndex = 0;
-            this.lblSprintTitle.Text = "Sprints - Status:";
+            this.lblSprintTitle.Text = "Sprints";
             this.lblSprintTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // chkSprinStatus
-            // 
-            this.chkSprinStatus.BackColor = System.Drawing.Color.White;
-            this.chkSprinStatus.CheckedState.BorderColor = System.Drawing.Color.White;
-            this.chkSprinStatus.CheckedState.BorderRadius = 10;
-            this.chkSprinStatus.CheckedState.BorderThickness = 2;
-            this.chkSprinStatus.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.chkSprinStatus.Location = new System.Drawing.Point(519, 65);
-            this.chkSprinStatus.Name = "chkSprinStatus";
-            this.chkSprinStatus.Size = new System.Drawing.Size(37, 29);
-            this.chkSprinStatus.TabIndex = 35;
-            this.chkSprinStatus.Text = "guna2CustomCheckBox1";
-            this.chkSprinStatus.UncheckedState.BorderColor = System.Drawing.Color.White;
-            this.chkSprinStatus.UncheckedState.BorderRadius = 10;
-            this.chkSprinStatus.UncheckedState.BorderThickness = 2;
-            this.chkSprinStatus.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             // 
             // SprintForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(782, 853);
-            this.Controls.Add(this.pnlAddProject);
+            this.Controls.Add(this.pnlCRUDSprint);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SprintForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SprintForm";
-            this.Load += new System.EventHandler(this.SprintForm_Load);
-            this.pnlAddProject.ResumeLayout(false);
+            this.pnlCRUDSprint.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private Guna.UI2.WinForms.Guna2GradientPanel pnlAddProject;
+        private Guna.UI2.WinForms.Guna2GradientPanel pnlCRUDSprint;
         private System.Windows.Forms.CheckedListBox clbSprintUsers;
         private Guna.UI2.WinForms.Guna2GradientButton btnSprintDelete;
         private Guna.UI2.WinForms.Guna2GradientButton btnSprintEdit;
         private Guna.UI2.WinForms.Guna2DateTimePicker dtpSprintEnd;
         private Guna.UI2.WinForms.Guna2DateTimePicker dtpSprintStart;
         private Guna.UI2.WinForms.Guna2TextBox txtSprintName;
-        private Guna.UI2.WinForms.Guna2TextBox txtSprintID;
         private Guna.UI2.WinForms.Guna2GradientButton btnSprintAdd;
         private System.Windows.Forms.Label lblProjectID;
         private System.Windows.Forms.Label lblSprintEnd;
@@ -482,11 +421,9 @@
         private System.Windows.Forms.Label lblSprintTitle;
         private Guna.UI2.WinForms.Guna2TextBox txtSprintBacklog;
         private System.Windows.Forms.Label lblSprintBacklog;
-        private Guna.UI2.WinForms.Guna2ComboBox cboProjectIDName;
-        private Guna.UI2.WinForms.Guna2ComboBox cboSprintID;
-        private Guna.UI2.WinForms.Guna2ComboBox cboDept;
         private Guna.UI2.WinForms.Guna2TextBox txtSprintIdAdd;
         private System.Windows.Forms.Label lblDept;
-        private Guna.UI2.WinForms.Guna2CustomCheckBox chkSprinStatus;
+        private System.Windows.Forms.Label lblProjectIDName;
+        private System.Windows.Forms.Label lblSpintID;
     }
 }

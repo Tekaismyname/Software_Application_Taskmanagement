@@ -30,10 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectForm));
             this.pnlAddProject = new Guna.UI2.WinForms.Guna2GradientPanel();
-            this.btnCheckID = new Guna.UI2.WinForms.Guna2Button();
+            this.cboProjectIDName = new Guna.UI2.WinForms.Guna2ComboBox();
             this.cboDept = new Guna.UI2.WinForms.Guna2ComboBox();
             this.clbUsers = new System.Windows.Forms.CheckedListBox();
-            this.btnDelete = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnEdit = new Guna.UI2.WinForms.Guna2GradientButton();
             this.dtpEnd = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.dtpStart = new Guna.UI2.WinForms.Guna2DateTimePicker();
@@ -56,10 +55,9 @@
             // 
             // pnlAddProject
             // 
-            this.pnlAddProject.Controls.Add(this.btnCheckID);
+            this.pnlAddProject.Controls.Add(this.cboProjectIDName);
             this.pnlAddProject.Controls.Add(this.cboDept);
             this.pnlAddProject.Controls.Add(this.clbUsers);
-            this.pnlAddProject.Controls.Add(this.btnDelete);
             this.pnlAddProject.Controls.Add(this.btnEdit);
             this.pnlAddProject.Controls.Add(this.dtpEnd);
             this.pnlAddProject.Controls.Add(this.dtpStart);
@@ -86,26 +84,21 @@
             this.pnlAddProject.Size = new System.Drawing.Size(782, 853);
             this.pnlAddProject.TabIndex = 0;
             // 
-            // btnCheckID
+            // cboProjectIDName
             // 
-            this.btnCheckID.BorderColor = System.Drawing.Color.Silver;
-            this.btnCheckID.BorderRadius = 10;
-            this.btnCheckID.BorderThickness = 2;
-            this.btnCheckID.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnCheckID.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnCheckID.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnCheckID.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnCheckID.FillColor = System.Drawing.Color.White;
-            this.btnCheckID.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
-            this.btnCheckID.ForeColor = System.Drawing.Color.Black;
-            this.btnCheckID.Image = ((System.Drawing.Image)(resources.GetObject("btnCheckID.Image")));
-            this.btnCheckID.Location = new System.Drawing.Point(618, 137);
-            this.btnCheckID.Name = "btnCheckID";
-            this.btnCheckID.Size = new System.Drawing.Size(50, 36);
-            this.btnCheckID.TabIndex = 28;
-            this.btnCheckID.Text = " ";
-            this.btnCheckID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.btnCheckID.Click += new System.EventHandler(this.btnCheckID_Click);
+            this.cboProjectIDName.BackColor = System.Drawing.Color.Transparent;
+            this.cboProjectIDName.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cboProjectIDName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboProjectIDName.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cboProjectIDName.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cboProjectIDName.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cboProjectIDName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.cboProjectIDName.ItemHeight = 30;
+            this.cboProjectIDName.Location = new System.Drawing.Point(305, 137);
+            this.cboProjectIDName.Name = "cboProjectIDName";
+            this.cboProjectIDName.Size = new System.Drawing.Size(307, 36);
+            this.cboProjectIDName.TabIndex = 32;
+            this.cboProjectIDName.SelectedIndexChanged += new System.EventHandler(this.cboProjectIDName_SelectedIndexChanged);
             // 
             // cboDept
             // 
@@ -129,24 +122,6 @@
             this.clbUsers.Name = "clbUsers";
             this.clbUsers.Size = new System.Drawing.Size(307, 174);
             this.clbUsers.TabIndex = 26;
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.BorderRadius = 10;
-            this.btnDelete.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnDelete.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnDelete.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnDelete.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnDelete.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnDelete.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(102)))));
-            this.btnDelete.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold);
-            this.btnDelete.ForeColor = System.Drawing.Color.White;
-            this.btnDelete.Location = new System.Drawing.Point(519, 796);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(180, 45);
-            this.btnDelete.TabIndex = 24;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnEdit
             // 
@@ -285,7 +260,7 @@
             this.btnAdd.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(102)))));
             this.btnAdd.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold);
             this.btnAdd.ForeColor = System.Drawing.Color.White;
-            this.btnAdd.Location = new System.Drawing.Point(84, 796);
+            this.btnAdd.Location = new System.Drawing.Point(305, 796);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(180, 45);
             this.btnAdd.TabIndex = 10;
@@ -294,8 +269,9 @@
             // 
             // lblID
             // 
-            this.lblID.BackColor = System.Drawing.Color.White;
-            this.lblID.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblID.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.lblID.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblID.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblID.Location = new System.Drawing.Point(150, 137);
             this.lblID.Name = "lblID";
             this.lblID.Size = new System.Drawing.Size(149, 36);
@@ -305,8 +281,9 @@
             // 
             // lblEnd
             // 
-            this.lblEnd.BackColor = System.Drawing.Color.White;
-            this.lblEnd.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEnd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(202)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.lblEnd.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblEnd.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEnd.Location = new System.Drawing.Point(150, 703);
             this.lblEnd.Name = "lblEnd";
             this.lblEnd.Size = new System.Drawing.Size(149, 36);
@@ -316,8 +293,9 @@
             // 
             // lblStart
             // 
-            this.lblStart.BackColor = System.Drawing.Color.White;
-            this.lblStart.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.lblStart.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblStart.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStart.Location = new System.Drawing.Point(150, 643);
             this.lblStart.Name = "lblStart";
             this.lblStart.Size = new System.Drawing.Size(149, 36);
@@ -327,8 +305,9 @@
             // 
             // lblDepartment
             // 
-            this.lblDepartment.BackColor = System.Drawing.Color.White;
-            this.lblDepartment.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDepartment.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.lblDepartment.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblDepartment.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDepartment.Location = new System.Drawing.Point(150, 582);
             this.lblDepartment.Name = "lblDepartment";
             this.lblDepartment.Size = new System.Drawing.Size(149, 36);
@@ -338,8 +317,9 @@
             // 
             // lblRevenue
             // 
-            this.lblRevenue.BackColor = System.Drawing.Color.White;
-            this.lblRevenue.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRevenue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.lblRevenue.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblRevenue.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRevenue.Location = new System.Drawing.Point(150, 521);
             this.lblRevenue.Name = "lblRevenue";
             this.lblRevenue.Size = new System.Drawing.Size(149, 36);
@@ -349,8 +329,9 @@
             // 
             // lblAssigned
             // 
-            this.lblAssigned.BackColor = System.Drawing.Color.White;
-            this.lblAssigned.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAssigned.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.lblAssigned.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblAssigned.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAssigned.Location = new System.Drawing.Point(150, 319);
             this.lblAssigned.Name = "lblAssigned";
             this.lblAssigned.Size = new System.Drawing.Size(149, 36);
@@ -360,8 +341,10 @@
             // 
             // lblBacklog
             // 
-            this.lblBacklog.BackColor = System.Drawing.Color.White;
-            this.lblBacklog.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBacklog.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.lblBacklog.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblBacklog.Cursor = System.Windows.Forms.Cursors.Default;
+            this.lblBacklog.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBacklog.Location = new System.Drawing.Point(150, 254);
             this.lblBacklog.Name = "lblBacklog";
             this.lblBacklog.Size = new System.Drawing.Size(149, 36);
@@ -371,8 +354,9 @@
             // 
             // lblProName
             // 
-            this.lblProName.BackColor = System.Drawing.Color.White;
-            this.lblProName.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.lblProName.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblProName.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblProName.Location = new System.Drawing.Point(150, 193);
             this.lblProName.Name = "lblProName";
             this.lblProName.Size = new System.Drawing.Size(149, 36);
@@ -428,9 +412,8 @@
         private Guna.UI2.WinForms.Guna2DateTimePicker dtpEnd;
         private Guna.UI2.WinForms.Guna2DateTimePicker dtpStart;
         private Guna.UI2.WinForms.Guna2GradientButton btnEdit;
-        private Guna.UI2.WinForms.Guna2GradientButton btnDelete;
         private System.Windows.Forms.CheckedListBox clbUsers;
         private Guna.UI2.WinForms.Guna2ComboBox cboDept;
-        private Guna.UI2.WinForms.Guna2Button btnCheckID;
+        private Guna.UI2.WinForms.Guna2ComboBox cboProjectIDName;
     }
 }

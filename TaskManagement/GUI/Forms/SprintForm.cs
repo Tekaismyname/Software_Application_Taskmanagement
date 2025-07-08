@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TaskManagement.BLL;
+using TaskManagement.DAL;
 using TaskManagement.DTO;
 
 namespace TaskManagement
@@ -16,6 +17,7 @@ namespace TaskManagement
     {
         private string Mode;
         private Project currentProject;
+        private int currentProjectID;
 
         private ProjectShowBLL bll = new ProjectShowBLL();
         private SprintShowBLL sprintbll = new SprintShowBLL();
@@ -42,294 +44,261 @@ namespace TaskManagement
             {
                 case "Add":
                     btnSprintAdd.Enabled = true;
-                    cboSprintID.Visible = false;
-                    cboDept.Visible = false;
+                    lblSpintID.Visible = false;    
+                    btnSprintEdit.Visible = false;
+                    btnSprintDelete.Visible = false;
                     break;
                 case "Edit":
                     btnSprintEdit.Enabled = true;
                     txtSprintIdAdd.Visible = false;
+                    lblSpintID.Visible = true;
+                    btnSprintAdd.Visible = false;
+                    btnSprintDelete.Visible = false;
                     break;
                 case "Delete":
                     btnSprintDelete.Enabled = true;
                     txtSprintIdAdd.Visible = false;
+                    btnSprintEdit.Visible = false;
+                    btnSprintAdd.Visible = false;
                     break;
             }
         }
 
-        private void SprintForm_Load(object sender, EventArgs e)
+        public void SetAddMode(Project project)
         {
-            LoadUserList();
-            LoadDepartment();
-            LoadProjectComboBox();
-        }
-        //Load danh sach Projects
-        //Load danh sach User vao CheckedListBox
-        private void LoadUserList()
-        {
-            List<User> users = bll.GetAllUsers();
-            if (users != null && users.Count > 0)
+            Mode = "Add";
+            currentProject = project;
+            
+            ConfigureButtons();
+
+            lblProjectIDName.Text = $"{project.ProjectID} - {project.ProjectName}";
+            lblProjectIDName.Visible = true;
+
+            lblDept.Text = project.DepartmentName;
+            //Range for Sprint Start and End Date
+            dtpSprintStart.MinDate = project.StartDate;
+            dtpSprintStart.MaxDate = project.DueDate;
+
+            dtpSprintEnd.MinDate = project.StartDate;
+            dtpSprintEnd.MaxDate = project.DueDate;
+            //Load Project's Users list into CheckedListBox
+            var userIds = bll.GetUserIDsByProject(project.ProjectID);
+            var allUsers = bll.GetAllUsers();
+            var projectUsers = allUsers.Where(u => userIds.Contains(u.UserID)).ToList();
+
+            clbSprintUsers.Items.Clear();
+            foreach (var user in projectUsers)
             {
-                clbSprintUsers.Items.Clear();
-                List<User> userList = bll.GetAllUsers();
-                foreach (var user in users)
+                clbSprintUsers.Items.Add(user);
+            }
+        }
+
+        public void SetEditMode(Sprint sprint)
+        {
+            Mode = "Edit";
+            currentProject = bll.GetProjectById(sprint.ProjectID); 
+
+            ConfigureButtons();
+
+            lblProjectIDName.Text = $"{currentProject.ProjectID} - {currentProject.ProjectName}";
+            lblProjectIDName.Visible = true;
+
+            lblDept.Text = currentProject.DepartmentName;
+            lblSpintID.Visible = true;
+            lblSpintID.Text = $"{sprint.SprintID} - {sprint.SprintName}";
+            txtSprintIdAdd.Visible = false;
+
+            txtSprintName.Text = sprint.SprintName;
+            txtSprintBacklog.Text = sprint.Description;
+            dtpSprintStart.Value = sprint.StartDate;
+            dtpSprintEnd.Value = sprint.EndDate;
+
+            dtpSprintStart.MinDate = currentProject.StartDate;
+            dtpSprintEnd.MaxDate = currentProject.DueDate;
+
+            var userIdsInProject = bll.GetUserIDsByProject(currentProject.ProjectID);
+            var allUsers = bll.GetAllUsers();
+            var projectUsers = allUsers.Where(u => userIdsInProject.Contains(u.UserID)).ToList();
+
+            var sprintUserIDs = sprintbll.GetUserIDsBySprint(sprint.SprintID, sprint.ProjectID);
+
+            clbSprintUsers.Items.Clear();
+            foreach (var user in projectUsers)
+            {
+                int index = clbSprintUsers.Items.Add(user);
+                if (sprintUserIDs.Contains(user.UserID))
                 {
-                    clbSprintUsers.Items.Add(user.FullName, false);
+                    clbSprintUsers.SetItemChecked(index, true);
                 }
             }
-            else
-            {
-                MessageBox.Show("No users found.");
-            }
-        }
-        private void LoadDepartment()
-        {
-            DataTable dt = bll.GetAllDepartments();
-            cboDept.DataSource = dt;
-            cboDept.DisplayMember = "DepartmentName";
-            cboDept.ValueMember = "DepartmentID";
-            cboDept.SelectedIndex = -1; //Khong tu chon
-        }
-        private void LoadProjectComboBox()
-        {
-
-            DataTable dt = sprintbll.GetProjectIdAndName();
-
-            dt.Columns.Add("Display", typeof(string));
-            foreach (DataRow row in dt.Rows)
-            {
-                row["Display"] = row["ProjectID"] + " - " + row["ProjectName"];
-            }
-
-            cboProjectIDName.DataSource = dt;
-            cboProjectIDName.DisplayMember = "Display";
-            cboProjectIDName.ValueMember = "ProjectID";
-            cboProjectIDName.SelectedIndex = -1;
         }
 
-        private void cboProjectIDName_SelectedIndexChanged(object sender, EventArgs e)
+        public void SetDeleteMode(Sprint sprint)
         {
-            if (cboProjectIDName.SelectedValue == null || cboProjectIDName.SelectedIndex == -1)
-                return;
+            Mode = "Delete";
+            currentProject = bll.GetProjectById(sprint.ProjectID);
 
-            try
+            ConfigureButtons();
+
+            lblProjectIDName.Text = $"{currentProject.ProjectID} - {currentProject.ProjectName}";
+            lblProjectIDName.Visible = true;
+
+            lblDept.Text = currentProject.DepartmentName;
+
+            lblSpintID.Visible = true;
+            lblSpintID.Text = $"{sprint.SprintID} - {sprint.SprintName}";
+            txtSprintIdAdd.Visible = false;
+
+            txtSprintName.Text = sprint.SprintName;
+            txtSprintBacklog.Text = sprint.Description;
+            dtpSprintStart.Value = sprint.StartDate;
+            dtpSprintEnd.Value = sprint.EndDate;
+
+            txtSprintName.Enabled = false;
+            txtSprintBacklog.Enabled = false;
+            dtpSprintStart.Enabled = false;
+            dtpSprintEnd.Enabled = false;
+
+            var userIdsInProject = bll.GetUserIDsByProject(currentProject.ProjectID);
+            var allUsers = bll.GetAllUsers();
+            var projectUsers = allUsers.Where(u => userIdsInProject.Contains(u.UserID)).ToList();
+
+            var sprintUserIDs = sprintbll.GetUserIDsBySprint(sprint.SprintID, sprint.ProjectID);
+
+            clbSprintUsers.Items.Clear();
+            foreach (var user in projectUsers)
             {
-                if (cboProjectIDName.SelectedItem is DataRowView rowView)
+                int index = clbSprintUsers.Items.Add(user);
+                if (sprintUserIDs.Contains(user.UserID))
                 {
-                    int projectID = Convert.ToInt32(rowView["ProjectID"]);
-
-                    Project selectedProject = bll.GetProjectById(projectID);
-
-                    if (selectedProject != null)
-                    {
-                        //Show the current Project Datetime
-                        dtpSprintStart.Value = selectedProject.StartDate;
-                        dtpSprintEnd.Value = selectedProject.DueDate;
-
-                        lblDept.Text = selectedProject.DepartmentName;
-                        if (Mode != "Add")
-                        {
-                            DataTable sprints = sprintbll.GetSprintsByProject(projectID);
-                            sprints.Columns.Add("Display", typeof(string));
-                            foreach (DataRow row in sprints.Rows)
-                            {
-                                row["Display"] = row["SprintID"] + " - " + row["SprintName"];
-                            }
-
-                            cboSprintID.DataSource = sprints;
-                            cboSprintID.DisplayMember = "Display";
-                            cboSprintID.ValueMember = "SprintID";
-                            cboSprintID.SelectedIndex = -1;
-                        }
-
-                        List<int> assignedUserIDs = bll.GetUserIDsByProject(projectID);
-                        List<User> allUsers = bll.GetAllUsers(); 
-
-                        clbSprintUsers.Items.Clear();
-                        foreach (User user in allUsers)
-                        {
-                            if (assignedUserIDs.Contains(user.UserID))
-                            {
-                                int index = clbSprintUsers.Items.Add(user.FullName);
-                            }
-                        }
-
-                        int count = sprintbll.CountSprintsByProject(projectID);
-                        txtSprintIdAdd.PlaceholderText = $"Sprints remained: {count}";
-                    }
+                    clbSprintUsers.SetItemChecked(index, true);
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Fail to choose project: " + ex.Message);
-            }
+
+            clbSprintUsers.Enabled = false; 
         }
+
+
 
         private void btnSprintAdd_Click(object sender, EventArgs e)
         {
-            int projectId = (cboProjectIDName.SelectedItem is DataRowView rowView)
-            ? Convert.ToInt32(rowView["ProjectID"])
-            : Convert.ToInt32(cboProjectIDName.SelectedValue);
-            try
+            Sprint s = new Sprint
             {
-                if (string.IsNullOrWhiteSpace(txtSprintIdAdd.Text) || !int.TryParse(txtSprintIdAdd.Text, out int sprintID))
-                {
-                    MessageBox.Show("ID must be Integer.");
-                    return;
-                }
+                SprintID = int.Parse(txtSprintIdAdd.Text),
+                SprintName = txtSprintName.Text,
+                Description = txtSprintBacklog.Text,
+                StartDate = dtpSprintStart.Value,
+                EndDate = dtpSprintEnd.Value,
+                ProjectID = currentProject.ProjectID,
+                Status = "Dang thuc hien"
+            };
 
-                if (string.IsNullOrWhiteSpace(txtSprintName.Text))
-                {
-                    MessageBox.Show("Please type in Sprint name.");
-                    return;
-                }
+            bool result = sprintbll.AddSprint(s);
 
-                if (string.IsNullOrWhiteSpace(txtSprintBacklog.Text))
-                {
-                    MessageBox.Show("Please type in Backlog.");
-                    return;
-                }
-
-                if (cboProjectIDName.SelectedIndex == -1)
-                {
-                    MessageBox.Show("Please choose a project.");
-                    return;
-                }
-
-                if (dtpSprintEnd.Value < dtpSprintStart.Value)
-                {
-                    MessageBox.Show("End date should be larger than start date.");
-                    return;
-                }
-
-                Sprint sprint = new Sprint
-                {
-                    SprintID = sprintID,
-                    SprintName = txtSprintName.Text.Trim(),
-                    Description = txtSprintBacklog.Text.Trim(),
-                    Status = "Đang thực hiện",
-                    StartDate = dtpSprintStart.Value,
-                    EndDate = dtpSprintEnd.Value,
-                    ProjectID = Convert.ToInt32(cboProjectIDName.SelectedValue)
-                };
-
-                bool success = sprintbll.AddSprint(sprint);
-                if (!success)
-                {
-                    MessageBox.Show("Cannot add a Sprint where typed SprintID is already existed.");
-                    return;
-                }
-
+            if (result)
+            {
                 List<int> selectedUserIDs = new List<int>();
+
                 foreach (var item in clbSprintUsers.CheckedItems)
                 {
-                    string fullName = item.ToString();
-                    var user = bll.GetAllUsers().FirstOrDefault(u => u.FullName == fullName);
-                    if (user != null)
-                        selectedUserIDs.Add(user.UserID);
-                }
-             
-                sprintbll.AssignUsersToSprint(sprint.SprintID, projectId, selectedUserIDs);
-                MessageBox.Show("Successfully added sprint!");
-                ((DashboardForm)Application.OpenForms["DashboardForm"]).ucSprintShowDashboard1.LoadData();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
-            }
-        }
-
-        private void cboSprintID_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cboSprintID.SelectedIndex == -1 || cboProjectIDName.SelectedIndex == -1) return;
-
-            int projectId = (cboProjectIDName.SelectedItem is DataRowView rowView)
-           ? Convert.ToInt32(rowView["ProjectID"])
-           : Convert.ToInt32(cboProjectIDName.SelectedValue);
-            int sprintId = (cboSprintID.SelectedItem is DataRowView rowView1)
-            ? Convert.ToInt32(rowView1["SprintID"])
-            : Convert.ToInt32(cboSprintID.SelectedValue);
-
-            Sprint selected = sprintbll.GetSprintById(sprintId, projectId);
-
-            if (selected != null)
-            {
-                txtSprintName.Text = selected.SprintName;
-                txtSprintBacklog.Text = selected.Description;
-                dtpSprintStart.Value = selected.StartDate;
-                dtpSprintEnd.Value = selected.EndDate;
-
-                List<int> projectUserIds = bll.GetUserIDsByProject(projectId);
-                List<User> allUsers = bll.GetAllUsers();
-
-                // Lấy danh sách Users đang được gán cho Sprint
-                List<int> sprintUserIds = sprintbll.GetUserIDsBySprint(sprintId, projectId);
-
-                clbSprintUsers.Items.Clear();
-
-                foreach (User user in allUsers)
-                {
-                    if (projectUserIds.Contains(user.UserID))
+                    if (item is User user)
                     {
-                        int index = clbSprintUsers.Items.Add(user.FullName);
-                        if (sprintUserIds.Contains(user.UserID))
-                        {
-                            clbSprintUsers.SetItemChecked(index, true); // Check nếu đang có trong Sprint
-                        }
+                        selectedUserIDs.Add(user.UserID);
                     }
                 }
+
+                sprintbll.AssignUsersToSprint(s.SprintID, currentProject.ProjectID, selectedUserIDs);
+
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+
+            if (currentProject.ProjectID == 0)
+            {
+                MessageBox.Show("Lỗi: Chưa gán Project hợp lệ cho Sprint!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+
+            if (result)
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Add failed!");
             }
         }
-
 
         private void btnSprintEdit_Click(object sender, EventArgs e)
         {
-            int projectId = (cboProjectIDName.SelectedItem is DataRowView rowView)
-            ? Convert.ToInt32(rowView["ProjectID"])
-            : Convert.ToInt32(cboProjectIDName.SelectedValue);
-            int sprintId = (cboSprintID.SelectedItem is DataRowView rowView1)
-            ? Convert.ToInt32(rowView1["SprintID"])
-            : Convert.ToInt32(cboSprintID.SelectedValue);
-            try
+            if (!int.TryParse(lblSpintID.Text.Split('-')[0].Trim(), out int sprintId))
             {
-                if (cboSprintID.SelectedIndex == -1)
-                {
-                    MessageBox.Show("Vui lòng chọn một Sprint để chỉnh sửa.");
-                    return;
-                }
-
-                Sprint updated = new Sprint
-                {
-                    SprintID = sprintId,
-                    ProjectID = projectId,
-                    SprintName = txtSprintName.Text,
-                    Description = txtSprintBacklog.Text,
-                    Status = "Đang thực hiện",
-                    StartDate = dtpSprintStart.Value,
-                    EndDate = dtpSprintEnd.Value
-                };
-
-                sprintbll.UpdateSprint(updated);
-
-                // Cập nhật lại users
-                List<int> userIDs = new List<int>();
-                foreach (var item in clbSprintUsers.CheckedItems)
-                {
-                    string fullName = item.ToString();
-                    var user = bll.GetAllUsers().FirstOrDefault(u => u.FullName == fullName);
-                    if (user != null)
-                        userIDs.Add(user.UserID);
-                }
-
-                sprintbll.AssignUsersToSprint(sprintId, projectId, userIDs);
-
-                MessageBox.Show("Cập nhật Sprint thành công!");
-                ((DashboardForm)Application.OpenForms["DashboardForm"]).ucSprintShowDashboard1.LoadData();
+                MessageBox.Show("Không đọc được Sprint ID.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            catch (Exception ex)
+
+            Sprint sprint = new Sprint
             {
-                MessageBox.Show("Lỗi khi cập nhật Sprint: " + ex.Message);
+                SprintID = sprintId,
+                SprintName = txtSprintName.Text.Trim(),
+                Description = txtSprintBacklog.Text.Trim(),
+                StartDate = dtpSprintStart.Value,
+                EndDate = dtpSprintEnd.Value,
+                ProjectID = currentProject.ProjectID,
+                Status = "Dang thuc hien"
+            };
+
+            bool result = sprintbll.UpdateSprint(sprint);
+            if (!result)
+            {
+                MessageBox.Show("Cập nhật Sprint thất bại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            List<int> selectedUserIDs = new List<int>();
+            foreach (var item in clbSprintUsers.CheckedItems)
+            {
+                if (item is User user)
+                {
+                    selectedUserIDs.Add(user.UserID);
+                }
+            }
+
+            sprintbll.AssignUsersToSprint(sprint.SprintID, currentProject.ProjectID, selectedUserIDs);
+
+            MessageBox.Show("Cập nhật Sprint thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+        private void btnSprintDelete_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa Sprint này?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result != DialogResult.Yes) return;
+
+            if (!int.TryParse(lblSpintID.Text.Split('-')[0].Trim(), out int sprintId))
+            {
+                MessageBox.Show("Không xác định được Sprint ID.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            int projectId = currentProject.ProjectID;
+
+            bool success = sprintbll.DeleteSprint(sprintId, projectId);
+            if (success)
+            {
+                MessageBox.Show("Đã xóa Sprint thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Xóa Sprint thất bại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
 
     }
 }

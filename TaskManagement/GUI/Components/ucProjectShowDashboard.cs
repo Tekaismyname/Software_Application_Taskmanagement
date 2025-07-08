@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TaskManagement.DTO;
 
 namespace TaskManagement
 {
@@ -17,12 +18,12 @@ namespace TaskManagement
         public ucProjectShowDashboard()
         {
             InitializeComponent();
-            this.Load += ucProjectShowDashboard_Load; // Attach the load event handler
+            //this.Load += ucProjectShowDashboard_Load; // Attach the load event handler
         }
 
         private void ucProjectShowDashboard_Load(object sender, EventArgs e)
         {
-            LoadData();
+            //LoadData();
         }
 
         public void LoadData()
@@ -40,5 +41,44 @@ namespace TaskManagement
             adgvProjectDashboard.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             adgvProjectDashboard.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
         }
+        public void ShowSingleProject(Project p)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt.Columns.Add("ProjectID");
+                dt.Columns.Add("ProjectName");
+                dt.Columns.Add("Backlog");
+                dt.Columns.Add("Status");
+                dt.Columns.Add("Revenue");
+                dt.Columns.Add("Department");
+                dt.Columns.Add("AssignedTo");
+                dt.Columns.Add("StartDate");
+                dt.Columns.Add("DueDate");
+
+                dt.Rows.Add(p.ProjectID, p.ProjectName, p.Description, p.Status, p.Revenue,
+                            p.DepartmentName, p.AssignedTo,
+                            p.StartDate.ToShortDateString(), p.DueDate.ToShortDateString());
+
+                adgvProjectDashboard.DataSource = dt;
+                adgvProjectDashboard.Visible = true;
+
+                // Thiết lập độ rộng
+                adgvProjectDashboard.Columns["ProjectName"].Width = 150; 
+                adgvProjectDashboard.Columns["Backlog"].Width = 150;
+                adgvProjectDashboard.Columns["AssignedTo"].Width = 200;
+                adgvProjectDashboard.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+                adgvProjectDashboard.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi hiển thị project:\n" + ex.Message,
+                                "Lỗi",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+        }
+
+
     }
 }

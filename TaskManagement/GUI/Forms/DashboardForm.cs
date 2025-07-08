@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Guna.UI2.WinForms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,7 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Guna.UI2.WinForms;
+using TaskManagement.BLL;
+using TaskManagement.DAL;
+using TaskManagement.DTO;
 
 
 namespace TaskManagement
@@ -18,28 +21,39 @@ namespace TaskManagement
         {
             InitializeComponent();
             btnDashboard_Click(btnDashboard, null);
-
+            ucDashboard1.AddProjectRequested += (s, e) =>
+            {
+                ProjectForm form = new ProjectForm();
+                form.SetAddMode();
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    // Sau khi thêm thành công, nếu ucProjectCardShow đang hiện → reload
+                    if (pnlShow.Controls.Count > 0 && pnlShow.Controls[0] is ucProjectCardShow projectUC)
+                    {
+                        projectUC.LoadProjectCardsToPanel();
+                    }
+                }
+            };
             ucDashboard1.ProjectButtonClicked += (s, e) =>
             {
-                this.pnlProjectShow.Controls.Clear();
-                this.pnlProjectShow.Controls.Add(ucProjectShowDashboard1);
-                ucProjectShowDashboard1.LoadData();
+                ShowProjectView();
             };
 
             ucDashboard1.SprintButtonClicked += (s, e) =>
             {
-                this.pnlProjectShow.Controls.Clear();
-                this.pnlProjectShow.Controls.Add(ucSprintShowDashboard1);
-                ucSprintShowDashboard1.LoadData();
+                ShowSprintView();
             };
         }
 
-
         private ProjectShowBLL bll = new ProjectShowBLL();
+        private SprintShowBLL sprintbll = new SprintShowBLL();
+        private ucProjectCardShow projectUC;
+        private ucSprintCardShow sprintUC;
+        private Project currentProject;
 
         private Guna2Button selectedButton = null;
 
-    private void HandleButtonClick(Guna2Button btn)
+        private void HandleButtonClick(Guna2Button btn)
         {
             if (selectedButton != null)
             {
@@ -56,28 +70,6 @@ namespace TaskManagement
             this.pnlDashboard.Controls.Add(ucDashboard1);
             //this.pnlProjectShow.Controls.Clear();
             //this.pnlProjectShow.Controls.Add(ucProjectShowDashboard1);
-        }
-        private void btnMarketing_Click(object sender, MouseEventArgs e)
-        {
-            HandleButtonClick(btnMarketing);
-            this.pnlDashboard.Controls.Clear();
-            this.pnlDashboard.Controls.Add(ucMarketing1);
-            this.pnlProjectShow.Controls.Clear();
-            this.pnlProjectShow.Controls.Add(ucProjectShowMarketing1);
-        }
-        private void btnCoding_Click(object sender, MouseEventArgs e)
-        {
-            HandleButtonClick(btnCoding);
-            this.pnlDashboard.Controls.Clear();
-            this.pnlDashboard.Controls.Add(ucCoding1);
-            this.pnlProjectShow.Controls.Clear();
-            this.pnlProjectShow.Controls.Add(ucProjectShowCoding1);
-        }
-        private void btnRevenue_Click(object sender, MouseEventArgs e)
-        {
-           HandleButtonClick(btnRevenue);
-           this.pnlDashboard.Controls.Clear();
-           this.pnlDashboard.Controls.Add(ucRevenue1);
         }
         private void btnUser_Click(object sender, MouseEventArgs e)
         {
@@ -119,20 +111,60 @@ namespace TaskManagement
             LoadWorkingStatus(selectedDate);
         }
 
-        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
 
+        public void ShowSprintFromProject(Project p)
+        {
+            ucDashboard1.HandleButtonClick(ucDashboard1.btnSprints);
+            if (sprintUC == null)
+            {
+                sprintUC = new ucSprintCardShow();
+                sprintUC.Dock = DockStyle.Fill;
+            }
+
+            // Chỉ clear nếu uc khác đang nằm trong pnlShow
+            if (!(pnlShow.Controls.Count > 0 && pnlShow.Controls[0] == sprintUC))
+            {
+                pnlShow.Controls.Clear();
+                pnlShow.Controls.Add(sprintUC);
+                sprintUC.BringToFront();
+            }
+
+            sprintUC.LoadByProject(p); // luôn load lại đúng project
+        }
+
+
+        public void ShowProjectView()
+        {
+            if (projectUC == null)
+            {
+                projectUC = new ucProjectCardShow();
+                projectUC.Dock = DockStyle.Fill;
+            }
+
+            if (!(pnlShow.Controls.Count > 0 && pnlShow.Controls[0] == projectUC))
+            {
+                pnlShow.Controls.Clear();
+                pnlShow.Controls.Add(projectUC);
+            }
+        }
+        public void ShowSprintView()
+        {
+            if (sprintUC == null)
+            {
+                sprintUC = new ucSprintCardShow();
+                sprintUC.Dock = DockStyle.Fill;
+            }
+
+            if (!(pnlShow.Controls.Count > 0 && pnlShow.Controls[0] == sprintUC))
+            {
+                pnlShow.Controls.Clear();
+                pnlShow.Controls.Add(sprintUC);
+            }
         }
         private void ucDashboard1_Load(object sender, EventArgs e)
         {
 
         }
-
-        private void lblSelectedDateOnsite_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void DashboardForm_Load(object sender, EventArgs e)
         {
             DateTime today = calendarWorkingStatus.SelectionStart;
